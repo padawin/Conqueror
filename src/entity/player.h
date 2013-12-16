@@ -14,6 +14,13 @@ typedef struct {
 	struct s_cell **owned_cells;
 } s_player;
 
-int init_player(s_player *p, const char *name);
+int init_player(
+	s_player *p,
+	const char *name,
+	const short is_human,
+	const int strategy,
+	const int nb_pawns,
+	const int nb_total_cells
+);
 
 #endif
