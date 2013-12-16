@@ -1,5 +1,5 @@
 APPNAME:= conqueror
-PROG   := comqueror
+PROG   := conqueror
 CC     := gcc
 INCL   :=
 CFLAGS := -g -O2 -Wall -Wextra -Wwrite-strings -Wformat=2 -Wconversion -Wmissing-declarations -Wmissing-prototypes
