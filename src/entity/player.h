@@ -14,4 +14,6 @@ typedef struct {
 	struct s_cell **owned_cells;
 } s_player;
 
+int init_player(s_player *p, const char *name);
+
 #endif

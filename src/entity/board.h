@@ -8,4 +8,7 @@ typedef struct {
 	s_cell *cells;
 } s_board;
 
+int init_board(s_board *b, int nb_cells);
+void free_board(s_board *b);
+
 #endif
