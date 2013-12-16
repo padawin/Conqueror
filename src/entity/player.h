@@ -5,6 +5,15 @@ struct s_player;
 
 #include "cell.h"
 
+#define STRATEGY_NONE 0
+#define STRATEGY_SPREAD 1
+#define STRATEGY_OFFENCE 2
+
+// Invalid strategy provided
+#define ERROR_INIT_EMPTY_NAME -1
+#define ERROR_INIT_STRATEGY -2
+#define ERROR_INIT_NB_PAWNS -3
+
 typedef struct {
 	const char *name;
 	short is_human;
