@@ -32,3 +32,8 @@ int init_player(
 
 	return 1;
 }
+
+void free_player(s_player *p)
+{
+	free(p->owned_cells);
+}

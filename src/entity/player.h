@@ -31,5 +31,6 @@ int init_player(
 	const int nb_pawns,
 	const int nb_total_cells
 );
+void free_player(s_player *p);
 
 #endif
