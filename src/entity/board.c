@@ -20,3 +20,10 @@ void free_board(s_board *b)
 {
 	free(b->cells);
 }
+
+int board_add_player(s_board *b, s_player * p)
+{
+	//find a free cell
+	//set its owner
+	//set the cell's pawns number (== player's pawn number)
+}
