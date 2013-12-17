@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "cell.h"
 #include "board.h"
+#include "../utils.h"
 
 int init_board(s_board *b, int nb_cells, int nb_players)
 {
@@ -27,7 +28,22 @@ void free_board(s_board *b)
 
 int board_add_player(s_board *b, s_player *p)
 {
+	int cell_index = -1;
+
+	if (b->nb_players == b->nb_total_players) {
+		return cell_index;
+	}
+
 	//find a free cell
-	//set its owner
-	//set the cell's pawns number (== player's pawn number)
+	do {
+		cell_index = (int) get_random_int(0, (unsigned int) b->nb_cells);
+	} while (cell_index == -1 || b->cells[cell_index].owner != NULL);
+
+	b->cells[cell_index].owner = p;
+	b->cells[cell_index].nb_pawns = p->nb_pawns;
+
+	b->players[b->nb_players] = p;
+	b->nb_players++;
+
+	return cell_index;
 }
