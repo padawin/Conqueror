@@ -3,6 +3,7 @@
 #include "entity/player.h"
 #include "entity/cell.h"
 #include "entity/board.h"
+#include "game.h"
 #include "builder.h"
 
 #define NB_CELLS 4
@@ -22,6 +23,8 @@ int main()
 
 	board_add_player(&b, &p1);
 	board_add_player(&b, &p2);
+
+	game_start(&b);
 
 	printf("Nb cells: %d\n", b.nb_cells);
 	printf("Player name: %s\n", p1.name);
