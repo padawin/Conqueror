@@ -13,6 +13,6 @@ typedef struct {
 
 int init_board(s_board *b, int nb_cells, int nb_players);
 void free_board(s_board *b);
-int board_add_player(s_player * p);
+int board_add_player(s_board *b, s_player * p);
 
 #endif
