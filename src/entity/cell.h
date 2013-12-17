@@ -7,7 +7,7 @@
 
 struct s_cell;
 
-typedef struct {
+typedef struct s_cell {
 	int id;
 	struct s_player *owner;
 	int nb_pawns;
