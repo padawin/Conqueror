@@ -10,7 +10,7 @@ int init_board(s_board *b, int nb_cells)
 	b->cells = (s_cell*) calloc((size_t) nb_cells, sizeof(s_cell));
 
 	for (c = 0; c < nb_cells; c++) {
-		b->cells[c].id = c + 1;
+		init_cell(&b->cells[c], c + 1, nb_cells);
 	}
 
 	return 1;
