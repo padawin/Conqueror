@@ -35,7 +35,7 @@ int get_line(const char *prmpt, char *buff, size_t sz)
 		printf("%s", prmpt);
 		fflush(stdout);
 	}
-	if (fgets(buff, sz, stdin) == NULL)
+	if (fgets(buff, (int) sz, stdin) == NULL)
 		return INPUT_EMPTY;
 
 	// If it was too long, there'll be no newline. In that case, we flush
