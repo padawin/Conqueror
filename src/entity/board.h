@@ -7,6 +7,7 @@
 typedef struct {
 	int nb_cells;
 	int nb_players;
+	int nb_total_players;
 	s_player **players;
 	s_cell *cells;
 } s_board;
