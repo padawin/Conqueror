@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include "player.h"
+#include "player/ai.h"
+#include "player/human.h"
 
 int init_player(
 	s_player *p,
@@ -36,4 +38,17 @@ int init_player(
 void free_player(s_player *p)
 {
 	free(p->owned_cells);
+}
+
+int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
+{
+	int cell_id;
+
+	if (p->is_human) {
+		cell_id = human_select_cell_to_leave(p, player_cells, nb_cells);
+	}
+	else {
+		cell_id = ai_select_cell_to_leave(p, player_cells, nb_cells);
+	}
+	return cell_id;
 }
