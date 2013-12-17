@@ -14,7 +14,7 @@ struct s_player;
 #define ERROR_INIT_STRATEGY -2
 #define ERROR_INIT_NB_PAWNS -3
 
-typedef struct {
+typedef struct s_player {
 	const char *name;
 	short is_human;
 	int strategy;
