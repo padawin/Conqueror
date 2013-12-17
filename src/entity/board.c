@@ -25,7 +25,7 @@ void free_board(s_board *b)
 	free(b->players);
 }
 
-int board_add_player(s_board *b, s_player * p)
+int board_add_player(s_board *b, s_player *p)
 {
 	//find a free cell
 	//set its owner
