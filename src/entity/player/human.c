@@ -19,7 +19,7 @@ short check_command(const char *typed, const char *command, short strict);
  * 		# Must belong to the player
  * cell #: Select the cell # to play. The cell # must belong to the player.
  */
-int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
+int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 {
 	int command_size, choosen_cell;
 
