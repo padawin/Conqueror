@@ -1,7 +1,8 @@
 #include <stdlib.h>
+#include "game.h"
+#include "entity/board.h"
 #include "entity/player.h"
 #include "entity/cell.h"
-#include "game.h"
 #include "utils.h"
 
 int select_starting_player(int nb_players);
@@ -10,10 +11,10 @@ s_player *game_start(s_board *b)
 {
 	int current_player_index, player_nb_cells, cell_to_leave, cell_to_goto;
 	s_player *winner, *current;
-	s_cell **player_cells;
+	struct s_cell **player_cells;
 
 	winner = NULL;
-	player_cells = calloc((size_t) b->nb_cells, sizeof(s_cell *));
+	player_cells = calloc((size_t) b->nb_cells, sizeof(struct s_cell *));
 
 	// select starting player
 	current_player_index = select_starting_player(b->nb_players);
