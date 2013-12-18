@@ -32,8 +32,7 @@ install:
 
 
 clean:
-	rm $(PROG)
-	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete  -o -name '*.so' -delete
+	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete  -o -name "$(PROG)" -delete
 
 $(PROG): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
