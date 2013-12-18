@@ -10,7 +10,7 @@
  * Uses /dev/urandom
  * @TODO Has to be improved to work on non unix system
  */
-unsigned int get_random_int(unsigned int min, unsigned int max)
+unsigned int utils_get_random_int(unsigned int min, unsigned int max)
 {
 	int randomData = open("/dev/urandom", O_RDONLY);
 	unsigned int rInt;
@@ -26,7 +26,7 @@ unsigned int get_random_int(unsigned int min, unsigned int max)
  * Function to read a char* from stdin
  * from paxdiablo, http://stackoverflow.com/questions/4023895/how-to-read-string-entered-by-user-in-c
  */
-int get_line(const char *prmpt, char *buff, size_t sz)
+int utils_get_line(const char *prmpt, char *buff, size_t sz)
 {
 	int ch, extra;
 

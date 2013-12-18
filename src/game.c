@@ -35,5 +35,5 @@ s_player *game_start(s_board *b)
 
 int select_starting_player(int nb_players)
 {
-	return (int) get_random_int(0, (unsigned int) nb_players);
+	return (int) utils_get_random_int(0, (unsigned int) nb_players);
 }
