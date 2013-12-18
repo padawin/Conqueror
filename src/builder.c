@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "builder.h"
 #include "entity/board.h"
 

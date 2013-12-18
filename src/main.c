@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "entity/player.h"
 #include "entity/cell.h"
 #include "entity/board.h"
@@ -25,10 +24,6 @@ int main()
 	board_add_player(&b, &p2);
 
 	game_start(&b);
-
-	printf("Nb cells: %d\n", b.nb_cells);
-	printf("Player name: %s\n", p1.name);
-	printf("Player pawns number: %d\n", p1.nb_pawns);
 
 	free_board(&b);
 	free_player(&p1);
