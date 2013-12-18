@@ -69,14 +69,6 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
 				}
 			}
 		}
-		// list player cells
-		// prompt cell to leave
-		/*
-		 * Command examples:
-		 * cells
-		 * neighbours #
-		 * leave #
-		 */
 	} while (choosen_cell == -1);
 
 	return choosen_cell;
