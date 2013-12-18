@@ -1,5 +1,8 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+#include <limits.h>
+#include <errno.h>
 #include "human.h"
 #include "../../ui.h"
 
@@ -32,7 +35,23 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
 			ui_list_cells(player_cells, nb_cells);
 		}
 		else if (check_command(command, "neighbours ", 0)) {
+			long int cell;
+			char *cell_str, *endptr;
 
+			cell_str = strstr(command, " ");
+			cell = strtol(cell_str, &endptr, 10);
+
+			if ((errno == ERANGE && (cell == LONG_MAX || cell == LONG_MIN))
+				|| (errno != 0 && cell == 0)
+				// nondigits found after the digits
+				|| (*endptr != '\0' && endptr != cell_str)
+			) {
+				ui_error("Invalid cell ID value");
+			}
+			else if (endptr == cell_str)
+				ui_error("No cell ID found");
+			else
+				printf("Cell: %d\n", (int) cell);
 		}
 		// list player cells
 		// prompt cell to leave
