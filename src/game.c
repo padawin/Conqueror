@@ -18,9 +18,9 @@ s_player *game_start(s_board *b)
 
 	// select starting player
 	current_player_index = select_starting_player(b->nb_players);
-	current = b->players[current_player_index];
 
 	do {
+		current = b->players[current_player_index];
 		// current player must choose one if its cells (C1)
 		player_nb_cells = board_get_player_cells(b, current, player_cells);
 		cell_to_leave = player_select_cell_to_leave(current, player_cells, player_nb_cells);
@@ -28,6 +28,9 @@ s_player *game_start(s_board *b)
 		// Current player must choose a neighbour cell from C1, C2
 		// Current player must choose a number of n pawns to move
 		// Move n pawns to C2
+
+		if (winner == NULL)
+			current_player_index = (current_player_index + 1) % b->nb_players;
 	} while (winner == NULL);
 
 	return winner;
