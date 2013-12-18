@@ -3,7 +3,7 @@
 #include "human.h"
 #include "../../ui.h"
 
-short check_command(const char *typed, const char *command);
+short check_command(const char *typed, const char *command, short strict);
 
 /**
  * Function to ask the player to choose a cell to play.
@@ -23,7 +23,7 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
 
 	ui_prompt_command(command, (size_t) command_size);
 
-	if (check_command(command, "cells")) {
+	if (check_command(command, "cells", 1)) {
 		ui_list_cells(player_cells, nb_cells);
 	}
 	// list player cells
@@ -41,7 +41,7 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
  * Checks if a typed command match the provided command.
  * Returns 1 if the typed command is correct, 0 else.
  */
-short check_command(const char *typed, const char *command)
+short check_command(const char *typed, const char *command, short strict)
 {
 	char *result;
 	int position;
@@ -53,5 +53,10 @@ short check_command(const char *typed, const char *command)
 	}
 
 	position = (int) (result - typed);
+
+	if (strict && strlen(typed) != strlen(command)) {
+		return 0;
+	}
+
 	return position == 0;
 }
