@@ -10,3 +10,8 @@ struct s_cell *ai_select_cell_to_go_to(struct s_cell *src_cell)
 {
 	return NULL;
 }
+
+int ai_select_nb_pawns(struct s_cell *src_cell)
+{
+	return 1;
+}

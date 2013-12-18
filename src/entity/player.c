@@ -66,3 +66,16 @@ struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell)
 	}
 	return dst_cell;
 }
+
+int player_select_nb_pawns(s_player *p, struct s_cell *src_cell)
+{
+	int nb_pawns;
+
+	if (p->is_human) {
+		nb_pawns = human_select_nb_pawns(src_cell);
+	}
+	else {
+		nb_pawns = ai_select_nb_pawns(src_cell);
+	}
+	return nb_pawns;
+}

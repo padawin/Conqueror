@@ -89,6 +89,21 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 	return choosen_cell;
 }
 
+int human_select_nb_pawns(struct s_cell *src_cell)
+{
+	int nb_pawns;
+
+	nb_pawns = -1;
+
+	do {
+	// Display number of available pawns
+	// Prompt number of pawns
+	// Check is value is an integer > 1 and <= nb available pawns
+	} while (nb_pawns == -1);
+
+	return nb_pawns;
+}
+
 /**
  * Checks if a typed command match the provided command.
  * Returns 1 if the typed command is correct, 0 else.

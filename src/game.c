@@ -9,7 +9,7 @@ int select_starting_player(int nb_players);
 
 s_player *game_start(s_board *b)
 {
-	int current_player_index, player_nb_cells, cell_to_leave;
+	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
 	s_player *winner, *current;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
@@ -34,8 +34,8 @@ s_player *game_start(s_board *b)
 		// cell_to_goto = cell struct of the cell to go to
 		cell_to_goto = player_select_cell_to_go_to(current, player_cells[cell_to_leave]);
 
-		// Current player must choose a number of n pawns to move
-		// Move n pawns to C2
+		// Select the number of pawns to move
+		nb_pawns_to_move = player_select_nb_pawns(current, player_cells[cell_to_leave]);
 
 		if (winner == NULL)
 			current_player_index = (current_player_index + 1) % b->nb_players;

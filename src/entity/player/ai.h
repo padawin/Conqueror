@@ -6,5 +6,6 @@
 
 int ai_select_cell_to_leave(struct s_cell **player_cells, int nb_cells);
 struct s_cell *ai_select_cell_to_go_to(struct s_cell *src_cell);
+int ai_select_nb_pawns(struct s_cell *src_cell);
 
 #endif
