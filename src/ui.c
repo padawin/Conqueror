@@ -29,3 +29,8 @@ void ui_prompt_command(char *command, size_t command_size)
 {
 	utils_get_line("Command: ", command, command_size);
 }
+
+void ui_error(const char *msg)
+{
+	fprintf(stderr, "%s\n", msg);
+}
