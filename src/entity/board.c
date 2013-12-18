@@ -36,7 +36,7 @@ int board_add_player(s_board *b, s_player *p)
 
 	//find a free cell
 	do {
-		cell_index = (int) get_random_int(0, (unsigned int) b->nb_cells);
+		cell_index = (int) utils_get_random_int(0, (unsigned int) b->nb_cells);
 	} while (cell_index == -1 || b->cells[cell_index].owner != NULL);
 
 	b->cells[cell_index].owner = p;

@@ -27,5 +27,5 @@ void ui_list_cells(s_cell **cells, int nb_cells)
  */
 void ui_prompt_command(char *command, size_t command_size)
 {
-	get_line("Command: ", command, command_size);
+	utils_get_line("Command: ", command, command_size);
 }
