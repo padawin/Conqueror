@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "cell.h"
 #include "player.h"
 #include "player/ai.h"
 #include "player/human.h"
@@ -51,4 +52,17 @@ int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int n
 		cell_id = ai_select_cell_to_leave(player_cells, nb_cells);
 	}
 	return cell_id;
+}
+
+struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell)
+{
+	struct s_cell *dst_cell;
+
+	if (p->is_human) {
+		dst_cell = human_select_cell_to_go_to(src_cell);
+	}
+	else {
+		dst_cell = ai_select_cell_to_go_to(src_cell);
+	}
+	return dst_cell;
 }
