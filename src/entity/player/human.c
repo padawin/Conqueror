@@ -1,6 +1,9 @@
 #include <stdlib.h>
+#include <string.h>
 #include "human.h"
 #include "../../ui.h"
+
+short check_command(const char *typed, const char *command);
 
 int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
 {
@@ -20,4 +23,23 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
 	 * leave #
 	 */
 	return 1;
+}
+
+/**
+ * Checks if a typed command match the provided command.
+ * Returns 1 if the typed command is correct, 0 else.
+ */
+short check_command(const char *typed, const char *command)
+{
+	char *result;
+	int position;
+
+	// Find command in type
+	result = strstr(typed, command);
+	if (result == NULL) {
+		return 0;
+	}
+
+	position = (int) (result - typed);
+	return position == 0;
 }
