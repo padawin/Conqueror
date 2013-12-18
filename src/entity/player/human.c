@@ -7,6 +7,7 @@
 #include "../../ui.h"
 
 short _check_command(const char *typed, const char *command, short strict);
+short _extract_cell_id(char *command, long int *cell);
 
 /**
  * Function to ask the player to choose a cell to play.
@@ -36,38 +37,24 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 		}
 		else if (_check_command(command, "neighbours ", 0)) {
 			long int cell;
-			char *cell_str, *endptr;
+			short result;
 
-			cell_str = strstr(command, " ");
-			cell = strtol(cell_str, &endptr, 10);
+			result = _extract_cell_id(command, &cell);
+			if (!result)
+				continue;
 
-			if ((errno == ERANGE && (cell == LONG_MAX || cell == LONG_MIN))
-				|| (errno != 0 && cell == 0)
-				// nondigits found after the digits
-				|| (*endptr != '\0' && endptr != cell_str)
-			) {
-				ui_error("Invalid cell ID value");
+			// check if the selected cell belong to the player's cells
+			int c;
+			for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
+
+			if (c == nb_cells) {
+				char error[64];
+				sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
+				ui_error(error);
+				continue;
 			}
-			else if (endptr == cell_str)
-				ui_error("No cell ID found");
-			else {
-				// check if the selected cell belong to the player's cells
-				int c;
-				for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
 
-				// list neighbours cells of the selected cell
-				if (c < nb_cells) {
-					char str[15];
-					sprintf(str, "nb neighbours: %d", player_cells[c]->nb_neighbours);
-					ui_error(str);
-					ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
-				}
-				else {
-					char error[64];
-					sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
-					ui_error(error);
-				}
-			}
+			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
 		}
 	} while (choosen_cell == -1);
 
@@ -96,4 +83,30 @@ short _check_command(const char *typed, const char *command, short strict)
 	}
 
 	return position == 0;
+}
+
+/**
+ * From a typed command, extract a cell ID, which must be after the first space.
+ */
+short _extract_cell_id(char *command, long int *cell)
+{
+	char *cell_str, *endptr;
+
+	cell_str = strstr(command, " ");
+	*cell = strtol(cell_str, &endptr, 10);
+
+	if ((errno == ERANGE && (*cell == LONG_MAX || *cell == LONG_MIN))
+		|| (errno != 0 && *cell == 0)
+		// nondigits found after the digits
+		|| (*endptr != '\0' && endptr != cell_str)
+	) {
+		ui_error("Invalid cell ID value");
+		return 0;
+	}
+	else if (endptr == cell_str) {
+		ui_error("No cell ID found");
+		return 0;
+	}
+
+	return 1;
 }
