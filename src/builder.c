@@ -18,6 +18,7 @@ int builder_create_small_board(s_board *b, int nb_player)
 	for (c = 0; c < SMALL_BOARD_NB_CELLS; c++) {
 		b->cells[c].neighbours[0] = &b->cells[(SMALL_BOARD_NB_CELLS + c - 1) % SMALL_BOARD_NB_CELLS];
 		b->cells[c].neighbours[1] = &b->cells[(c + 1) % SMALL_BOARD_NB_CELLS];
+		b->cells[c].nb_neighbours = 2;
 	}
 
 	return 1;
