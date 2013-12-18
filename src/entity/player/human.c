@@ -7,7 +7,7 @@
 #include "../../ui.h"
 
 short _check_command(const char *typed, const char *command, short strict);
-short _extract_cell_id(char *command, long int *cell);
+short _extract_cell_id(const char *command, long int *cell);
 
 /**
  * Function to ask the player to choose a cell to play.
@@ -88,7 +88,7 @@ short _check_command(const char *typed, const char *command, short strict)
 /**
  * From a typed command, extract a cell ID, which must be after the first space.
  */
-short _extract_cell_id(char *command, long int *cell)
+short _extract_cell_id(const char *command, long int *cell)
 {
 	char *cell_str, *endptr;
 
