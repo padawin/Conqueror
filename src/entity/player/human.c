@@ -5,6 +5,17 @@
 
 short check_command(const char *typed, const char *command);
 
+/**
+ * Function to ask the player to choose a cell to play.
+ * In this step, the player must be able to list his cells, list a cell's
+ * neighbours and choose a cell to play.
+ *
+ * Commands:
+ * cells: List the player's cells
+ * neighbours #: List the neighbours cells of the cell having as ID #. The cell
+ * 		# Must belong to the player
+ * cell #: Select the cell # to play. The cell # must belong to the player.
+ */
 int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
 {
 	int command_size = 30;
