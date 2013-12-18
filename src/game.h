@@ -1,5 +1,5 @@
-#ifndef S_CELL
-#define S_CELL
+#ifndef S_GAME
+#define S_GAME
 
 #include "entity/player.h"
 #include "entity/board.h"
