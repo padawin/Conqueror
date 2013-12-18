@@ -28,7 +28,8 @@ clean:
 	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete -o -name "$(PROG)" -delete -o -name "test" -delete
 
 $(PROG): $(OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	mkdir -p bin
+	$(CC) -o bin/$@ $^ $(LDFLAGS)
 
 test: $(TESTOBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
