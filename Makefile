@@ -26,11 +26,6 @@ all: $(PROG)
 %.o: %.c
 	$(CC) $(CCDYNAMICFLAGS) -c -MMD $< -o $@
 
-install:
-	$(INSTALL) include/$(INCL) $(INCLDIR)/webserver/$(INCL)
-	$(INSTALL) config.conf $(APPDIR)/$(APPNAME).conf
-
-
 clean:
 	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete  -o -name "$(PROG)" -delete
 
