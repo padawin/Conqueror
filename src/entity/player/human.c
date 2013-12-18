@@ -1,14 +1,16 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include "human.h"
-#include "../../utils.h"
+#include "../../ui.h"
 
 int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
 {
-	char command[30];
+	int command_size = 30;
+	char command[command_size];
 
-	get_line("Command:", command, sizeof(command));
+	ui_list_cells(player_cells, nb_cells);
 
-	printf("Typed command: %s", command);
+	ui_prompt_command(command, (size_t) command_size);
+
 	// list player cells
 	// prompt cell to leave
 	/*
