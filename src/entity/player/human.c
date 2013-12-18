@@ -8,6 +8,7 @@
 
 short _check_command(const char *typed, const char *command, short strict);
 short _extract_cell_id(const char *command, long int *cell);
+int _get_cell_from_command(const char *command, struct s_cell **player_cells, int nb_cells);
 
 /**
  * Function to ask the player to choose a cell to play.
@@ -36,25 +37,22 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 			ui_list_cells(player_cells, nb_cells);
 		}
 		else if (_check_command(command, "neighbours ", 0)) {
-			long int cell;
-			short result;
+			// c must be a player's cell
+			int c = _get_cell_from_command(command, player_cells, nb_cells);
 
-			result = _extract_cell_id(command, &cell);
-			if (!result)
+			if (c == -1)
 				continue;
-
-			// check if the selected cell belong to the player's cells
-			int c;
-			for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
-
-			if (c == nb_cells) {
-				char error[64];
-				sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
-				ui_error(error);
-				continue;
-			}
 
 			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
+		}
+		else if (_check_command(command, "cell ", 0)) {
+			// c must be a player's cell
+			int c = _get_cell_from_command(command, player_cells, nb_cells);
+
+			if (c == -1)
+				continue;
+
+			choosen_cell = c;
 		}
 	} while (choosen_cell == -1);
 
@@ -109,4 +107,27 @@ short _extract_cell_id(const char *command, long int *cell)
 	}
 
 	return 1;
+}
+
+int _get_cell_from_command(const char *command, struct s_cell **player_cells, int nb_cells)
+{
+	long int cell;
+	short result;
+
+	result = _extract_cell_id(command, &cell);
+	if (!result)
+		return -1;
+
+	// check if the selected cell belong to the player's cells
+	int c;
+	for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
+
+	if (c == nb_cells) {
+		char error[64];
+		sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
+		ui_error(error);
+		return -1;
+	}
+
+	return c;
 }
