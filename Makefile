@@ -9,7 +9,7 @@ LDDYNAMICFLAGS := -shared
 
 INSTALL=install -D
 
-SRC := $(wildcard src/*.c src/*/*.c)
+SRC := $(wildcard src/*.c src/*/*.c src/*/*/*.c)
 OBJ := $(patsubst %.c,%.o,$(SRC))
 DEP := $(patsubst %.c,%.deps,$(SRC))
 

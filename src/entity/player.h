@@ -15,6 +15,7 @@ struct s_player;
 #define ERROR_INIT_NB_PAWNS -3
 
 typedef struct s_player {
+	int id;
 	const char *name;
 	short is_human;
 	int strategy;
@@ -32,5 +33,6 @@ int init_player(
 	const int nb_total_cells
 );
 void free_player(s_player *p);
+int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells);
 
 #endif

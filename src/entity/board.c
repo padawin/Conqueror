@@ -47,3 +47,17 @@ int board_add_player(s_board *b, s_player *p)
 
 	return cell_index;
 }
+
+int board_get_player_cells(s_board *b, s_player *p, s_cell **player_cells)
+{
+	int c, nb_cells;
+
+	nb_cells = 0;
+	for (c = 0; c < b->nb_cells; c++) {
+		if (b->cells[c].owner != NULL && b->cells[c].owner->id == p->id) {
+			player_cells[nb_cells++] = &b->cells[c];
+		}
+	}
+
+	return nb_cells;
+}
