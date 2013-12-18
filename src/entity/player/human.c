@@ -50,8 +50,24 @@ int human_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb
 			}
 			else if (endptr == cell_str)
 				ui_error("No cell ID found");
-			else
-				printf("Cell: %d\n", (int) cell);
+			else {
+				// check if the selected cell belong to the player's cells
+				int c;
+				for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
+
+				// list neighbours cells of the selected cell
+				if (c < nb_cells) {
+					char str[15];
+					sprintf(str, "nb neighbours: %d", player_cells[c]->nb_neighbours);
+					ui_error(str);
+					ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
+				}
+				else {
+					char error[64];
+					sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
+					ui_error(error);
+				}
+			}
 		}
 		// list player cells
 		// prompt cell to leave
