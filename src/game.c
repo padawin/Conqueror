@@ -10,7 +10,7 @@ int select_starting_player(int nb_players);
 s_player *game_start(s_board *b)
 {
 	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
-	s_player *winner, *current;
+	s_player *winner, *current_player;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
 
@@ -21,27 +21,27 @@ s_player *game_start(s_board *b)
 	current_player_index = select_starting_player(b->nb_players);
 
 	do {
-		current = b->players[current_player_index];
+		current_player = b->players[current_player_index];
 
-		player_nb_cells = board_get_player_cells(b, current, player_cells);
+		player_nb_cells = board_get_player_cells(b, current_player, player_cells);
 
 		// Here the player can list his cells, see the neighbours of any of his
 		// cells, select a cell to leave
 		// cell_to_leave = cell index in player_cells
-		cell_to_leave = player_select_cell_to_leave(current, player_cells, player_nb_cells);
+		cell_to_leave = player_select_cell_to_leave(current_player, player_cells, player_nb_cells);
 
 		// Select a neighbours cell of cell_to_leave to go there
 		// cell_to_goto = cell struct of the cell to go to
-		cell_to_goto = player_select_cell_to_go_to(current, player_cells[cell_to_leave]);
+		cell_to_goto = player_select_cell_to_go_to(current_player, player_cells[cell_to_leave]);
 
 		// Select the number of pawns to move
-		nb_pawns_to_move = player_select_nb_pawns(current, player_cells[cell_to_leave]);
+		nb_pawns_to_move = player_select_nb_pawns(current_player, player_cells[cell_to_leave]);
 
-		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current->id) {
+		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current_player->id) {
 			if (cell_to_goto->owner == NULL) {
-				cell_to_goto->owner = current;
+				cell_to_goto->owner = current_player;
 			}
-			current->nb_pawns -= nb_pawns_to_move;
+			current_player->nb_pawns -= nb_pawns_to_move;
 			cell_to_goto->nb_pawns += nb_pawns_to_move;
 		}
 		else {
