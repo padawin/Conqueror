@@ -169,7 +169,7 @@ int _get_cell_from_command(const char *command, struct s_cell **player_cells, in
 
 	if (c == nb_cells) {
 		char error[64];
-		sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
+		sprintf(error, "The cell %ld is not valid", cell);
 		ui_error(error);
 		return -1;
 	}
