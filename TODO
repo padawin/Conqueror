@@ -18,6 +18,9 @@ Turn:
 	If the current player loses the fight, he loses the pawns he moved
 - If the current player wins the fight and if he owns all the cells or if all the other players
 	are defeated, he wins the game.
+-If the player didn't win and has no pawns anymore or as many pawns as the number of cells he owns, he cannot play anymore
+
+At the beginning, the number of pawns per player must be 2x(number of cells)
 
 Difficulty modes
 Easy: After each fight, let the other players know about the result (number of involved pawns and winner).
