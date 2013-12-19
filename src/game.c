@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "game.h"
 #include "entity/board.h"
 #include "entity/player.h"
@@ -20,6 +21,7 @@ s_player *game_start(s_board *b)
 	s_player *winner, *current_player;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
+	char next_player_msg[64];
 
 	winner = NULL;
 	player_cells = calloc((size_t) b->nb_cells, sizeof(struct s_cell *));
@@ -30,6 +32,8 @@ s_player *game_start(s_board *b)
 	do {
 		current_player = b->players[current_player_index];
 
+		sprintf(next_player_msg, "%s's turn to play", current_player->name);
+		ui_info(next_player_msg);
 		player_nb_cells = board_get_player_cells(b, current_player, player_cells);
 
 		// Here the player can list his cells, see the neighbours of any of his
