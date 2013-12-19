@@ -95,17 +95,42 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 
 int human_select_nb_pawns(struct s_cell *src_cell)
 {
-	int nb_pawns;
+	char nb_pawns_str[4], msg[64];
+	char *endptr;
+	long nb_pawns;
+	int max_pawns_number;
 
 	nb_pawns = -1;
+	// there must be at least one pawn on the cell
+	max_pawns_number = src_cell->nb_pawns - 1;
+
+	sprintf(msg, "Choose a number of pawns to move between 1 and %d", max_pawns_number);
+	ui_info(msg);
 
 	do {
-	// Display number of available pawns
-	// Prompt number of pawns
-	// Check is value is an integer > 1 and <= nb available pawns
+		ui_prompt("Number of pawns: ", nb_pawns_str, (size_t) 4);
+		nb_pawns = strtol(nb_pawns_str, &endptr, 10);
+
+		if ((errno == ERANGE && (nb_pawns == LONG_MAX || nb_pawns == LONG_MIN))
+			|| (errno != 0 && nb_pawns == 0)
+			// nondigits found after the digits
+			|| (*endptr != '\0' && endptr != nb_pawns_str)
+			|| nb_pawns < 1
+			|| nb_pawns > max_pawns_number
+		) {
+			ui_error("Invalid number of pawns");
+			nb_pawns = -1;
+			continue;
+		}
+		else if (endptr == nb_pawns_str) {
+			ui_error("No value found");
+			nb_pawns = -1;
+			continue;
+		}
+
 	} while (nb_pawns == -1);
 
-	return nb_pawns;
+	return (int) nb_pawns;
 }
 
 /**
