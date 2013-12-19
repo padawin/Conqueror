@@ -48,6 +48,7 @@ s_player *game_start(s_board *b)
 		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current_player->id) {
 			if (cell_to_goto->owner == NULL) {
 				cell_to_goto->owner = current_player;
+				current_player->nb_cells++;
 			}
 			cell_to_goto->nb_pawns += nb_pawns_to_move;
 		}
@@ -66,6 +67,7 @@ s_player *game_start(s_board *b)
 				ui_info("You won the fight");
 				cell_to_goto->owner = current_player;
 				cell_to_goto->nb_pawns = nb_pawns_to_move;
+				current_player->nb_cells++;
 			}
 		}
 
