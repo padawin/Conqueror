@@ -44,7 +44,7 @@ s_player *game_start(s_board *b)
 		// Select the number of pawns to move
 		nb_pawns_to_move = player_select_nb_pawns(current_player, player_cells[cell_to_leave]);
 
-		current_player->nb_pawns -= nb_pawns_to_move;
+		player_cells[cell_to_leave]->nb_pawns -= nb_pawns_to_move;
 		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current_player->id) {
 			if (cell_to_goto->owner == NULL) {
 				cell_to_goto->owner = current_player;
