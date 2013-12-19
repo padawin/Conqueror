@@ -30,6 +30,8 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 
 	choosen_cell = -1;
 
+	ui_info("Choose a cell to leave");
+
 	do {
 		ui_prompt("Command: ", command, (size_t) command_size);
 
@@ -68,6 +70,8 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 	char command[command_size];
 
 	choosen_cell = NULL;
+
+	ui_info("Choose a cell to go to");
 
 	do {
 		ui_prompt("Command: ", command, (size_t) command_size);
