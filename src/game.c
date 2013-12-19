@@ -37,6 +37,17 @@ s_player *game_start(s_board *b)
 		// Select the number of pawns to move
 		nb_pawns_to_move = player_select_nb_pawns(current, player_cells[cell_to_leave]);
 
+		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current->id) {
+			if (cell_to_goto->owner == NULL) {
+				cell_to_goto->owner = current;
+			}
+			current->nb_pawns -= nb_pawns_to_move;
+			cell_to_goto->nb_pawns += nb_pawns_to_move;
+		}
+		else {
+			// fight
+			printf("Fight!\n");
+		}
 		if (winner == NULL)
 			current_player_index = (current_player_index + 1) % b->nb_players;
 	} while (winner == NULL);
