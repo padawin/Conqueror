@@ -36,7 +36,7 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 		ui_prompt("Command: ", command, (size_t) command_size);
 
 		if (_check_command(command, "cells", 1)) {
-			ui_list_cells(player_cells, nb_cells);
+			ui_list_cells(player_cells, nb_cells, CELLS_LIST_MIN);
 		}
 		else if (_check_command(command, "neighbours ", 0)) {
 			// c must be a player's cell
@@ -45,7 +45,7 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 			if (c == -1)
 				continue;
 
-			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
+			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours, CELLS_LIST_FULL);
 		}
 		else if (_check_command(command, "cell ", 0)) {
 			// c must be a player's cell
@@ -77,7 +77,7 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 		ui_prompt("Command: ", command, (size_t) command_size);
 
 		if (_check_command(command, "neighbours", 1)) {
-			ui_list_cells(src_cell->neighbours, src_cell->nb_neighbours);
+			ui_list_cells(src_cell->neighbours, src_cell->nb_neighbours, CELLS_LIST_FULL);
 		}
 		else if (_check_command(command, "cell ", 0)) {
 			// c must be a player's cell

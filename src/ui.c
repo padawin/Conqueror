@@ -13,12 +13,20 @@
  * Function to display a list of cells with their informations (number of pawns
  * for now)
  */
-void ui_list_cells(s_cell **cells, int nb_cells)
+void ui_list_cells(s_cell **cells, int nb_cells, short full_display)
 {
 	int c;
 
 	for (c = 0; c < nb_cells; c++) {
-		printf("Cell %d: %d pawns\n", cells[c]->id, cells[c]->nb_pawns);
+		if (full_display == CELLS_LIST_FULL)
+			printf(
+				"Cell %d: owned by %s with %d pawns\n",
+				cells[c]->id,
+				cells[c]->owner == NULL ? "nobody" : cells[c]->owner->name,
+				cells[c]->nb_pawns
+			);
+		else
+			printf("Cell %d: %d pawns\n", cells[c]->id, cells[c]->nb_pawns);
 	}
 }
 
