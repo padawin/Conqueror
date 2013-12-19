@@ -4,8 +4,15 @@
 #include "entity/player.h"
 #include "entity/cell.h"
 #include "utils.h"
+#include "ui.h"
+
+#define NO_FIGHT 0
+#define FIGHT_WON 1
+#define FIGHT_LOST 2
+#define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
+short _fight(struct s_cell *cell, int nb_pawns);
 
 s_player *game_start(s_board *b)
 {
@@ -45,9 +52,24 @@ s_player *game_start(s_board *b)
 			cell_to_goto->nb_pawns += nb_pawns_to_move;
 		}
 		else {
+			ui_info("You're engaging a fight");
+
 			// fight
-			printf("Fight!\n");
+			short fight_result;
+			fight_result = _fight(cell_to_goto, nb_pawns_to_move);
+
+			if (fight_result == FIGHT_LOST) {
+				ui_info("You lost the fight");
+				current_player->nb_pawns -= nb_pawns_to_move;
+			}
+			else if (fight_result == FIGHT_WON) {
+				ui_info("You won the fight");
+				cell_to_goto->owner = current_player;
+				cell_to_goto->nb_pawns = nb_pawns_to_move;
+			}
+			current_player->nb_pawns -= nb_pawns_to_move;
 		}
+
 		if (winner == NULL)
 			current_player_index = (current_player_index + 1) % b->nb_players;
 	} while (winner == NULL);
@@ -58,4 +80,21 @@ s_player *game_start(s_board *b)
 int _select_starting_player(int nb_players)
 {
 	return (int) utils_get_random_int(0, (unsigned int) nb_players);
+}
+
+/**
+ * The player tries to dominate the cell with nb_pawns.
+ *
+ */
+short _fight(struct s_cell *cell, int nb_pawns)
+{
+	if (cell->nb_pawns > nb_pawns) {
+		return FIGHT_LOST;
+	}
+	else if (nb_pawns > cell->nb_pawns) {
+		return FIGHT_WON;
+	}
+	else {
+		return FIGHT_DRAW;
+	}
 }
