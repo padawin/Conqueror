@@ -34,3 +34,8 @@ void ui_error(const char *msg)
 {
 	fprintf(stderr, "%s\n", msg);
 }
+
+void ui_info(const char *msg)
+{
+	printf("%s\n", msg);
+}
