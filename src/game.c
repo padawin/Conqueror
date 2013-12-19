@@ -71,8 +71,15 @@ s_player *game_start(s_board *b)
 			}
 		}
 
-		if (winner == NULL)
-			current_player_index = (current_player_index + 1) % b->nb_players;
+		if (winner == NULL) {
+			// Loop to skip players who cannot play anymore
+			do {
+				current_player_index = (current_player_index + 1) % b->nb_players;
+			} while (
+				b->players[current_player_index]->nb_pawns == 0
+				|| b->players[current_player_index]->nb_pawns == b->players[current_player_index]->nb_cells
+			);
+		}
 	} while (winner == NULL);
 
 	return winner;
