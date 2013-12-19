@@ -25,9 +25,9 @@ void ui_list_cells(s_cell **cells, int nb_cells)
 /**
  * Function to ask the user to type a command
  */
-void ui_prompt_command(char *command, size_t command_size)
+void ui_prompt(const char *prompt, char *command, size_t command_size)
 {
-	utils_get_line("Command: ", command, command_size);
+	utils_get_line(prompt, command, command_size);
 }
 
 void ui_error(const char *msg)
