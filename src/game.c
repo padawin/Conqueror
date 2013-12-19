@@ -13,12 +13,12 @@
 #define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
-short _fight(struct s_cell *cell, int nb_pawns);
+void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 s_player *game_start(s_board *b)
 {
-	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move, p;
+	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
 	s_player *winner, *current_player;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
@@ -61,34 +61,7 @@ s_player *game_start(s_board *b)
 			ui_info("You're engaging a fight");
 
 			// fight
-			short fight_result;
-			fight_result = _fight(cell_to_goto, nb_pawns_to_move);
-
-			if (fight_result == FIGHT_LOST) {
-				ui_info("You lost the fight");
-				current_player->nb_pawns -= nb_pawns_to_move;
-			}
-			else if (fight_result == FIGHT_WON) {
-				ui_info("You won the fight");
-				cell_to_goto->owner = current_player;
-				cell_to_goto->nb_pawns = nb_pawns_to_move;
-				current_player->nb_cells++;
-
-				// Check if the current player is the winner of the game
-				for (
-					p = 0;
-					p < b->nb_players
-					&& (
-						b->players[p]->nb_cells == 0
-						|| b->players[p]->id == current_player->id
-					);
-					p++
-				);
-
-				if (p == b->nb_players) {
-					winner = current_player;
-				}
-			}
+			_fight(b, current_player, cell_to_goto, nb_pawns_to_move, winner);
 		}
 
 		if (winner == NULL) {
@@ -146,15 +119,44 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
  * The player tries to dominate the cell with nb_pawns.
  *
  */
-short _fight(struct s_cell *cell, int nb_pawns)
+void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner)
 {
+	short result;
+	int p;
+
 	if (cell->nb_pawns > nb_pawns) {
-		return FIGHT_LOST;
+		result = FIGHT_LOST;
 	}
 	else if (nb_pawns > cell->nb_pawns) {
-		return FIGHT_WON;
+		result = FIGHT_WON;
 	}
 	else {
-		return FIGHT_DRAW;
+		result = FIGHT_DRAW;
+	}
+
+	if (result == FIGHT_LOST) {
+		ui_info("You lost the fight");
+		current_player->nb_pawns -= nb_pawns;
+	}
+	else if (result == FIGHT_WON) {
+		ui_info("You won the fight");
+		cell->owner = current_player;
+		cell->nb_pawns = nb_pawns;
+		current_player->nb_cells++;
+
+		// Check if the current player is the winner of the game
+		for (
+			p = 0;
+			p < b->nb_players
+			&& (
+				b->players[p]->nb_cells == 0
+				|| b->players[p]->id == current_player->id
+			);
+			p++
+		);
+
+		if (p == b->nb_players) {
+			winner = current_player;
+		}
 	}
 }
