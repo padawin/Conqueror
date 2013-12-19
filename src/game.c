@@ -84,7 +84,7 @@ s_player *game_start(s_board *b)
 					p++
 				);
 
-				if (p == nb_players) {
+				if (p == b->nb_players) {
 					winner = current_player;
 				}
 			}
