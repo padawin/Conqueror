@@ -30,7 +30,7 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 	choosen_cell = -1;
 
 	do {
-		ui_prompt_command(command, (size_t) command_size);
+		ui_prompt("Command: ", command, (size_t) command_size);
 
 		if (_check_command(command, "cells", 1)) {
 			ui_list_cells(player_cells, nb_cells);
