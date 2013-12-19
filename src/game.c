@@ -95,10 +95,19 @@ s_player *game_start(s_board *b)
 			}
 
 			// Loop to skip players who cannot play anymore
-			// @TODO check if next player is the current one, which means no player won
-			// In this case, the winner is the one possessing the most cells
 			do {
 				current_player_index = (current_player_index + 1) % b->nb_players;
+
+				// There is no next player, the winner is the one owning the
+				// largest number of cells
+				if (b->players[current_player_index]->id == current_player->id) {
+					for (p = 0; p < b->nb_players; p++) {
+						if (winner == NULL || b->players[p]->nb_cells > winner->nb_cells) {
+							winner = b->players[p];
+						}
+					}
+					break;
+				}
 			} while (
 				b->players[current_player_index]->nb_pawns == 0
 				|| b->players[current_player_index]->nb_pawns == b->players[current_player_index]->nb_cells
