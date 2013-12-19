@@ -16,7 +16,7 @@ short _fight(struct s_cell *cell, int nb_pawns);
 
 s_player *game_start(s_board *b)
 {
-	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
+	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move, p;
 	s_player *winner, *current_player;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
@@ -69,8 +69,20 @@ s_player *game_start(s_board *b)
 				cell_to_goto->nb_pawns = nb_pawns_to_move;
 				current_player->nb_cells++;
 
-				// Check if game winner
-					// winner = current_player;
+				// Check if the current player is the winner of the game
+				for (
+					p = 0;
+					p < b->nb_players
+					&& (
+						b->players[p]->nb_cells == 0
+						|| b->players[p]->id == current_player->id
+					);
+					p++
+				);
+
+				if (p == nb_players) {
+					winner = current_player;
+				}
 			}
 		}
 
