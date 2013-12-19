@@ -68,6 +68,9 @@ s_player *game_start(s_board *b)
 				cell_to_goto->owner = current_player;
 				cell_to_goto->nb_pawns = nb_pawns_to_move;
 				current_player->nb_cells++;
+
+				// Check if game winner
+					// winner = current_player;
 			}
 		}
 
@@ -80,6 +83,8 @@ s_player *game_start(s_board *b)
 			}
 
 			// Loop to skip players who cannot play anymore
+			// @TODO check if next player is the current one, which means no player won
+			// In this case, the winner is the one possessing the most cells
 			do {
 				current_player_index = (current_player_index + 1) % b->nb_players;
 			} while (
