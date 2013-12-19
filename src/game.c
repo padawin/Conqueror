@@ -5,7 +5,7 @@
 #include "entity/cell.h"
 #include "utils.h"
 
-int select_starting_player(int nb_players);
+int _select_starting_player(int nb_players);
 
 s_player *game_start(s_board *b)
 {
@@ -18,7 +18,7 @@ s_player *game_start(s_board *b)
 	player_cells = calloc((size_t) b->nb_cells, sizeof(struct s_cell *));
 
 	// select starting player
-	current_player_index = select_starting_player(b->nb_players);
+	current_player_index = _select_starting_player(b->nb_players);
 
 	do {
 		current_player = b->players[current_player_index];
@@ -55,7 +55,7 @@ s_player *game_start(s_board *b)
 	return winner;
 }
 
-int select_starting_player(int nb_players)
+int _select_starting_player(int nb_players)
 {
 	return (int) utils_get_random_int(0, (unsigned int) nb_players);
 }
