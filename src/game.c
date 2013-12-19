@@ -14,6 +14,7 @@
 
 int _select_starting_player(int nb_players);
 short _fight(struct s_cell *cell, int nb_pawns);
+short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 s_player *game_start(s_board *b)
 {
@@ -98,24 +99,13 @@ s_player *game_start(s_board *b)
 				ui_info("You cannot play anymore, all your cells contain one pawn");
 			}
 
-			// Loop to skip players who cannot play anymore
-			do {
-				current_player_index = (current_player_index + 1) % b->nb_players;
-
-				// There is no next player, the winner is the one owning the
-				// largest number of cells
-				if (b->players[current_player_index]->id == current_player->id) {
-					for (p = 0; p < b->nb_players; p++) {
-						if (winner == NULL || b->players[p]->nb_cells > winner->nb_cells) {
-							winner = b->players[p];
-						}
-					}
-					break;
-				}
-			} while (
-				b->players[current_player_index]->nb_pawns == 0
-				|| b->players[current_player_index]->nb_pawns == b->players[current_player_index]->nb_cells
-			);
+			// Define the next player. If no next player is set, the function
+			// returns 0, this means a winner is found by draw (no player can
+			// move anymore, the winner is the one having the largest number of
+			// cells/remaining pawns)
+			if (!_set_next_player_index(b, &current_player_index, current_player, winner)) {
+				break;
+			}
 		}
 	} while (winner == NULL);
 
@@ -125,6 +115,31 @@ s_player *game_start(s_board *b)
 int _select_starting_player(int nb_players)
 {
 	return (int) utils_get_random_int(0, (unsigned int) nb_players);
+}
+
+short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner)
+{
+	int p;
+	// Loop to skip players who cannot play anymore
+	do {
+		*current_player_index = (*current_player_index + 1) % b->nb_players;
+
+		// There is no next player, the winner is the one owning the
+		// largest number of cells
+		if (b->players[*current_player_index]->id == current_player->id) {
+			for (p = 0; p < b->nb_players; p++) {
+				if (winner == NULL || b->players[p]->nb_cells > winner->nb_cells) {
+					winner = b->players[p];
+				}
+			}
+			return 0;
+		}
+	} while (
+		b->players[*current_player_index]->nb_pawns == 0
+		|| b->players[*current_player_index]->nb_pawns == b->players[*current_player_index]->nb_cells
+	);
+
+	return 1;
 }
 
 /**
