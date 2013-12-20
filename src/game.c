@@ -13,7 +13,7 @@
 #define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner);
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player **winner);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 s_player *game_start(s_board *b)
@@ -62,7 +62,7 @@ s_player *game_start(s_board *b)
 			ui_info("You're engaging a fight");
 
 			// fight
-			fight_result = _fight(b, current_player, cell_to_goto, nb_pawns_to_move, winner);
+			fight_result = _fight(b, current_player, cell_to_goto, nb_pawns_to_move, &winner);
 		}
 
 		if (fight_result != FIGHT_DRAW) {
@@ -124,7 +124,7 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
  * The player tries to dominate the cell with nb_pawns.
  *
  */
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner)
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player **winner)
 {
 	short result;
 	int p;
@@ -161,7 +161,7 @@ short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_p
 		);
 
 		if (p == b->nb_players) {
-			*winner = *current_player;
+			*winner = current_player;
 		}
 	}
 
