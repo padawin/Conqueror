@@ -13,12 +13,13 @@
 #define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
-void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner);
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 s_player *game_start(s_board *b)
 {
 	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
+	short fight_result;
 	s_player *winner, *current_player;
 	struct s_cell **player_cells;
 	struct s_cell *cell_to_goto;
@@ -56,12 +57,13 @@ s_player *game_start(s_board *b)
 				current_player->nb_cells++;
 			}
 			cell_to_goto->nb_pawns += nb_pawns_to_move;
+			fight_result = NO_FIGHT;
 		}
 		else {
 			ui_info("You're engaging a fight");
 
 			// fight
-			_fight(b, current_player, cell_to_goto, nb_pawns_to_move, winner);
+			fight_result = _fight(b, current_player, cell_to_goto, nb_pawns_to_move, winner);
 		}
 
 		if (winner == NULL) {
@@ -119,7 +121,7 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
  * The player tries to dominate the cell with nb_pawns.
  *
  */
-void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner)
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player *winner)
 {
 	short result;
 	int p;
@@ -159,4 +161,6 @@ void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pa
 			*winner = *current_player;
 		}
 	}
+
+	return result;
 }
