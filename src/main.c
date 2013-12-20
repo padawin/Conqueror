@@ -6,7 +6,7 @@
 #include "builder.h"
 
 #define NB_CELLS 4
-#define NB_PAWNS_PER_PLAYER 3
+#define NB_PAWNS_PER_PLAYER 8
 
 int main()
 {
