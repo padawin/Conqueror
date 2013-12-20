@@ -156,7 +156,7 @@ void _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pa
 		);
 
 		if (p == b->nb_players) {
-			winner = current_player;
+			*winner = *current_player;
 		}
 	}
 }
