@@ -25,7 +25,7 @@ all: $(PROG)
 	$(CC) $(CCDYNAMICFLAGS) -c -MMD $< -o $@
 
 clean:
-	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete  -o -name "$(PROG)" -delete
+	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete -o -name "$(PROG)" -delete -o -name "test" -delete
 
 $(PROG): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
