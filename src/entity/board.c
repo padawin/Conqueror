@@ -11,6 +11,7 @@ int init_board(s_board *b, int nb_cells, int nb_players)
 	b->cells = (s_cell*) calloc((size_t) nb_cells, sizeof(s_cell));
 
 	b->nb_total_players = nb_players;
+	b->nb_players = 0;
 	b->players = (s_player **) calloc((size_t) nb_players, sizeof(s_player *));
 
 	for (c = 0; c < nb_cells; c++) {
