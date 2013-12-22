@@ -63,7 +63,7 @@ void assert_long_not_equals(long val1, long val2)
 void assert_not_null(void *val)
 {
 	if (val != NULL)
-		printf("\033[00;32mOK: The given value is null\033[00m\n");
+		printf("\033[00;32mOK: The given value is not null\033[00m\n");
 	else
-		printf("\033[31mKO: The given value is not null\033[00m\n");
+		printf("\033[31mKO: The given value is null\033[00m\n");
 }
