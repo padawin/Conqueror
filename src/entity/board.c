@@ -25,6 +25,8 @@ void free_board(s_board *b)
 {
 	free(b->cells);
 	free(b->players);
+	b->cells = NULL;
+	b->players = NULL;
 }
 
 int board_add_player(s_board *b, s_player *p)

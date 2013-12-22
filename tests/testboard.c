@@ -15,3 +15,14 @@ void test_init_board()
 	free_board(&b);
 
 }
+void test_free_board(void)
+{
+	s_board b;
+
+	init_board(&b, 4, 2);
+
+	free_board(&b);
+
+	assert_null(b.cells);
+	assert_null(b.players);
+}

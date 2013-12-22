@@ -19,4 +19,5 @@ void testbuilder()
 void testboard()
 {
 	test_init_board();
+	test_free_board();
 }
