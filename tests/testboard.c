@@ -2,7 +2,7 @@
 #include "testboard.h"
 #include "test.h"
 
-void test_init_board()
+void test_init_board(void)
 {
 	s_board b;
 
