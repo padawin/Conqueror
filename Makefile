@@ -9,7 +9,8 @@ SRC := $(wildcard src/*.c src/*/*.c src/*/*/*.c)
 OBJ := $(patsubst %.c,%.o,$(SRC))
 DEP := $(patsubst %.c,%.deps,$(SRC))
 
-TESTSRC := $(wildcard tests/*.c tests/*/*.c tests/*/*/*.c)
+TESTSRC := $(wildcard tests/*.c tests/*/*.c tests/*/*/*.c src/*.c src/*/*.c src/*/*/*.c)
+TESTSRC := $(filter-out src/main.c, $(TESTSRC))
 TESTOBJ := $(patsubst %.c,%.o,$(TESTSRC))
 TESTDEP := $(patsubst %.c,%.deps,$(TESTSRC))
 
