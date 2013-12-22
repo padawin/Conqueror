@@ -20,4 +20,5 @@ void testboard()
 {
 	test_init_board();
 	test_free_board();
+	test_board_add_player();
 }
