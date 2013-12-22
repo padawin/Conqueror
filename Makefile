@@ -1,4 +1,3 @@
-APPNAME:= conqueror
 PROG   := conqueror
 CC     := gcc
 INCL   :=
