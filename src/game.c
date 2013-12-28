@@ -142,6 +142,8 @@ short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_p
 	}
 	else if (result == FIGHT_WON) {
 		ui_info("You won the fight");
+		cell->owner->nb_pawns -= cell->nb_pawns;
+		cell->owner->nb_cells--;
 		cell->owner = current_player;
 		cell->nb_pawns = nb_pawns;
 		current_player->nb_cells++;
