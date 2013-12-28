@@ -70,10 +70,7 @@ s_player *game_start(s_board *b)
 		}
 
 		if (winner == NULL) {
-			if (current_player->nb_pawns == 0) {
-				ui_info("You cannot play anymore, all your pawns are dead");
-			}
-			else if (current_player->nb_pawns == current_player->nb_cells) {
+			if (current_player->nb_pawns == current_player->nb_cells) {
 				ui_info("You cannot play anymore, all your cells contain one pawn");
 			}
 
