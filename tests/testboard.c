@@ -50,10 +50,12 @@ void test_board_add_player(void)
 
 	index_p1 = board_add_player(&b, &p1);
 	assert_int_equals(b.nb_players, 1);
+	assert_int_equals(b.players[0]->nb_cells, 1);
 	assert_int_not_equals(index_p1, -1);
 
 	index_p2 = board_add_player(&b, &p2);
 	assert_int_equals(b.nb_players, 2);
+	assert_int_equals(b.players[1]->nb_cells, 1);
 	assert_int_not_equals(index_p2, -1);
 
 	index_p3 = board_add_player(&b, &p3);
