@@ -14,8 +14,8 @@ int main()
 	s_player p1, p2;
 
 	builder_create_small_board(&b, 2);
-	init_player(&p1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER, NB_CELLS);
-	init_player(&p2, "Player 2", 1, STRATEGY_OFFENCE, NB_PAWNS_PER_PLAYER, NB_CELLS);
+	init_player(&p1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
+	init_player(&p2, "Player 2", 1, STRATEGY_OFFENCE, NB_PAWNS_PER_PLAYER);
 
 	p1.id = 1;
 	p2.id = 2;
@@ -26,7 +26,6 @@ int main()
 	game_start(&b);
 
 	free_board(&b);
-	free_player(&p1);
 
 	return EXIT_SUCCESS;
 }
