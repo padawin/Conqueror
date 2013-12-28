@@ -7,7 +7,8 @@
 #include "../../ui.h"
 
 short _check_command(const char *typed, const char *command, short strict);
-short _extract_cell_id(char *command, long int *cell);
+short _extract_cell_id(const char *command, long int *cell);
+int _get_cell_from_command(const char *command, struct s_cell **player_cells, int nb_cells);
 
 /**
  * Function to ask the player to choose a cell to play.
@@ -29,36 +30,107 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 
 	choosen_cell = -1;
 
+	ui_info("Choose a cell to leave");
+
 	do {
 		ui_prompt("Command: ", command, (size_t) command_size);
 
 		if (_check_command(command, "cells", 1)) {
-			ui_list_cells(player_cells, nb_cells);
+			ui_list_cells(player_cells, nb_cells, CELLS_LIST_MIN);
 		}
 		else if (_check_command(command, "neighbours ", 0)) {
-			long int cell;
-			short result;
+			// c must be a player's cell
+			int c = _get_cell_from_command(command, player_cells, nb_cells);
 
-			result = _extract_cell_id(command, &cell);
-			if (!result)
+			if (c == -1)
 				continue;
 
-			// check if the selected cell belong to the player's cells
-			int c;
-			for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
+			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours, CELLS_LIST_FULL);
+		}
+		else if (_check_command(command, "cell ", 0)) {
+			// c must be a player's cell
+			int c = _get_cell_from_command(command, player_cells, nb_cells);
 
-			if (c == nb_cells) {
-				char error[64];
-				sprintf(error, "The cell %ld does not exist or does not belong to you", cell);
-				ui_error(error);
+			if (c == -1)
 				continue;
-			}
 
-			ui_list_cells(player_cells[c]->neighbours, player_cells[c]->nb_neighbours);
+			choosen_cell = c;
 		}
 	} while (choosen_cell == -1);
 
 	return choosen_cell;
+}
+
+struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
+{
+	int command_size;
+	struct s_cell *choosen_cell;
+
+	command_size = 30;
+	char command[command_size];
+
+	choosen_cell = NULL;
+
+	ui_info("Choose a cell to go to");
+
+	do {
+		ui_prompt("Command: ", command, (size_t) command_size);
+
+		if (_check_command(command, "neighbours", 1)) {
+			ui_list_cells(src_cell->neighbours, src_cell->nb_neighbours, CELLS_LIST_FULL);
+		}
+		else if (_check_command(command, "cell ", 0)) {
+			// c must be a player's cell
+			int c = _get_cell_from_command(command, src_cell->neighbours, src_cell->nb_neighbours);
+
+			if (c == -1)
+				continue;
+
+			choosen_cell = src_cell->neighbours[c];
+		}
+	} while (choosen_cell == NULL);
+
+	return choosen_cell;
+}
+
+int human_select_nb_pawns(struct s_cell *src_cell)
+{
+	char nb_pawns_str[4], msg[64];
+	char *endptr;
+	long nb_pawns;
+	int max_pawns_number;
+
+	nb_pawns = -1;
+	// there must be at least one pawn on the cell
+	max_pawns_number = src_cell->nb_pawns - 1;
+
+	sprintf(msg, "Choose a number of pawns to move between 1 and %d", max_pawns_number);
+	ui_info(msg);
+
+	do {
+		ui_prompt("Number of pawns: ", nb_pawns_str, (size_t) 4);
+		nb_pawns = strtol(nb_pawns_str, &endptr, 10);
+
+		if ((errno == ERANGE && (nb_pawns == LONG_MAX || nb_pawns == LONG_MIN))
+			|| (errno != 0 && nb_pawns == 0)
+			// nondigits found after the digits
+			|| (*endptr != '\0' && endptr != nb_pawns_str)
+			|| nb_pawns < 1
+			|| nb_pawns > max_pawns_number
+		) {
+			ui_error("Invalid number of pawns");
+			nb_pawns = -1;
+			continue;
+		}
+		else if (endptr == nb_pawns_str) {
+			ui_error("No value found");
+			nb_pawns = -1;
+			continue;
+		}
+
+	} while (nb_pawns == -1);
+
+	return (int) nb_pawns;
 }
 
 /**
@@ -88,7 +160,7 @@ short _check_command(const char *typed, const char *command, short strict)
 /**
  * From a typed command, extract a cell ID, which must be after the first space.
  */
-short _extract_cell_id(char *command, long int *cell)
+short _extract_cell_id(const char *command, long int *cell)
 {
 	char *cell_str, *endptr;
 
@@ -109,4 +181,27 @@ short _extract_cell_id(char *command, long int *cell)
 	}
 
 	return 1;
+}
+
+int _get_cell_from_command(const char *command, struct s_cell **player_cells, int nb_cells)
+{
+	long int cell;
+	short result;
+
+	result = _extract_cell_id(command, &cell);
+	if (!result)
+		return -1;
+
+	// check if the selected cell belong to the player's cells
+	int c;
+	for (c = 0; c < nb_cells && player_cells[c]->id != (int) cell; c++);
+
+	if (c == nb_cells) {
+		char error[64];
+		sprintf(error, "The cell %ld is not valid", cell);
+		ui_error(error);
+		return -1;
+	}
+
+	return c;
 }

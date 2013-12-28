@@ -40,9 +40,9 @@ void test_board_add_player(void)
 	init_board(&b, nb_cells, 2);
 
 	builder_create_small_board(&b, 2);
-	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1, nb_cells);
-	init_player(&p2, "Player 2", 1, STRATEGY_OFFENCE, 1, nb_cells);
-	init_player(&p2, "Player 3", 1, STRATEGY_OFFENCE, 1, nb_cells);
+	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1);
+	init_player(&p2, "Player 2", 1, STRATEGY_OFFENCE, 1);
+	init_player(&p2, "Player 3", 1, STRATEGY_OFFENCE, 1);
 
 	p1.id = 1;
 	p2.id = 2;
@@ -50,19 +50,18 @@ void test_board_add_player(void)
 
 	index_p1 = board_add_player(&b, &p1);
 	assert_int_equals(b.nb_players, 1);
+	assert_int_equals(b.players[0]->nb_cells, 1);
 	assert_int_not_equals(index_p1, -1);
 
 	index_p2 = board_add_player(&b, &p2);
 	assert_int_equals(b.nb_players, 2);
+	assert_int_equals(b.players[1]->nb_cells, 1);
 	assert_int_not_equals(index_p2, -1);
 
 	index_p3 = board_add_player(&b, &p3);
 	assert_int_equals(b.nb_players, 2);
 	assert_int_equals(index_p3, -1);
 
-	free_player(&p1);
-	free_player(&p2);
-	free_player(&p3);
 	free_board(&b);
 }
 
@@ -78,7 +77,7 @@ void test_board_get_player_cells(void)
 	player_cells = calloc((size_t) b.nb_cells, sizeof(struct s_cell *));
 
 	builder_create_small_board(&b, 2);
-	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1, nb_cells);
+	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1);
 
 	p1.id = 1;
 
@@ -88,6 +87,5 @@ void test_board_get_player_cells(void)
 	assert_not_null(player_cells[0]);
 	assert_null(player_cells[1]);
 
-	free_player(&p1);
 	free_board(&b);
 }

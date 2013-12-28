@@ -21,7 +21,6 @@ typedef struct s_player {
 	int strategy;
 	int nb_pawns;
 	int nb_cells;
-	struct s_cell **owned_cells;
 } s_player;
 
 int init_player(
@@ -29,10 +28,10 @@ int init_player(
 	const char *name,
 	const short is_human,
 	const int strategy,
-	const int nb_pawns,
-	const int nb_total_cells
+	const int nb_pawns
 );
-void free_player(s_player *p);
 int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells);
+struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell);
+int player_select_nb_pawns(s_player *p, struct s_cell *src_cell);
 
 #endif
