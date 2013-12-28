@@ -1,11 +1,11 @@
 #ifndef S_CELL
 #define S_CELL
 
+struct s_cell;
+
 #include "player.h"
 
 #define ERROR_MAX_NEIGHBOURS_REACHED -1
-
-struct s_cell;
 
 typedef struct s_cell {
 	int id;

@@ -47,6 +47,7 @@ int board_add_player(s_board *b, s_player *p)
 
 	b->players[b->nb_players] = p;
 	b->nb_players++;
+	p->nb_cells++;
 
 	return cell_index;
 }
