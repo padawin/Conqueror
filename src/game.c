@@ -14,7 +14,7 @@
 #define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner);
+short _fight(s_player *current_player, struct s_cell *cell, uint16_t nb_pawns);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 /**
@@ -72,7 +72,7 @@ s_player *game_start(s_board *b)
 			ui_info("You're engaging a fight");
 
 			// fight
-			fight_result = _fight(b, current_player, cell_to_goto, nb_pawns_to_move, &winner);
+			fight_result = _fight(current_player, cell_to_goto, nb_pawns_to_move);
 		}
 
 		if (fight_result != FIGHT_DRAW) {
@@ -80,18 +80,16 @@ s_player *game_start(s_board *b)
 			player_cells[cell_to_leave]->nb_pawns = (uint16_t) (player_cells[cell_to_leave]->nb_pawns + nb_pawns_to_move);
 		}
 
-		if (winner == NULL) {
-			if (current_player->nb_pawns == current_player->nb_cells) {
-				ui_info("You cannot play anymore, all your cells contain one pawn");
-			}
+		if (current_player->nb_pawns == current_player->nb_cells) {
+			ui_info("You cannot play anymore, all your cells contain one pawn");
+		}
 
-			// Define the next player. If no next player is set, the function
-			// returns 0, this means a winner is found by draw (no player can
-			// move anymore, the winner is the one having the largest number of
-			// cells/remaining pawns)
-			if (!_set_next_player_index(b, &current_player_index, current_player, winner)) {
-				break;
-			}
+		// Define the next player. If no next player is set, the function
+		// returns 0, this means a winner is found by draw (no player can
+		// move anymore, the winner is the one having the largest number of
+		// cells/remaining pawns)
+		if (!_set_next_player_index(b, &current_player_index, current_player, winner)) {
+			break;
 		}
 	} while (winner == NULL);
 
@@ -164,10 +162,9 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
  * @return short FIGHT_WON if current_player won the fight, FIGHT_DRAW if nobody
  * 		won, FIGHT_LOST if current_player lost the fight
  */
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner)
+short _fight(s_player *current_player, struct s_cell *cell, uint16_t nb_pawns)
 {
 	short result;
-	int p;
 
 	if (cell->nb_pawns > nb_pawns) {
 		result = FIGHT_LOST;
@@ -192,21 +189,6 @@ short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t
 		cell->owner = current_player;
 		cell->nb_pawns = nb_pawns;
 		current_player->nb_cells++;
-
-		// Check if the current player is the winner of the game
-		for (
-			p = 0;
-			p < b->nb_players
-			&& (
-				b->players[p]->nb_cells == 0
-				|| b->players[p]->id == current_player->id
-			);
-			p++
-		);
-
-		if (p == b->nb_players) {
-			*winner = current_player;
-		}
 	}
 
 	return result;
