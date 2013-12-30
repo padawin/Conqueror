@@ -40,6 +40,7 @@ int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 void free_cell(s_cell *c)
 {
 	free(c->neighbours);
+	c->neighbours = NULL;
 }
 
 /**
