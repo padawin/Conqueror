@@ -23,7 +23,7 @@ int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 	c->nb_pawns = 0;
 	c->nb_neighbours = 0;
 	c->nb_max_neighbours = (uint8_t) (nb_cells - 1);
-	// @XXX: Might cause some issues here
+
 	c->neighbours = calloc((size_t) c->nb_max_neighbours, sizeof(s_cell*));
 
 	return 1;
