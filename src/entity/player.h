@@ -33,5 +33,7 @@ int init_player(
 int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells);
 struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell);
 uint16_t player_select_nb_pawns(s_player *p, struct s_cell *src_cell);
+int player_move_to_cell(s_player *p, int nb_pawns, struct s_cell *src_cell, struct s_cell *dst_cell);
+int player_fight(s_player *p, int nb_pawns, struct s_cell *cell);
 
 #endif

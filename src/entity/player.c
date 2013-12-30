@@ -117,3 +117,31 @@ uint16_t player_select_nb_pawns(s_player *p, struct s_cell *src_cell)
 	}
 	return nb_pawns;
 }
+
+int player_move_to_cell(s_player *p, int nb_pawns, struct s_cell *src_cell, struct s_cell *dst_cell)
+{
+	if (dst_cell->owner == NULL || dst_cell->owner->id == p->id) {
+		if (dst_cell->owner == NULL) {
+			dst_cell->owner = p;
+			p->nb_cells++;
+		}
+		dst_cell->nb_pawns += nb_pawns_to_move;
+	}
+	else {
+		// @TODO Plug event
+		ui_info("You're engaging a fight");
+
+		// fight
+		player_fight(p, nb_pawns, dst_cell);
+	}
+
+	if (fight_result != FIGHT_DRAW) {
+		player_cells[cell_to_leave]->nb_pawns -= nb_pawns_to_move;
+	}
+
+}
+
+s_player* player_fight(s_player *p, int nb_pawns, struct s_cell *cell)
+{
+
+}
