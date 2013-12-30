@@ -3,6 +3,18 @@
 #include "board.h"
 #include "../utils.h"
 
+/**
+ * Function to initalise the board.
+ *
+ * @param s_board *b The board to initialise
+ * @param uint8_t nb_cells The board's number of cells
+ * @param uint8_t nb_players The number of players
+ *
+ * @return int 1 if the board is correctly initialised,
+ * 		ERROR_INIT_BOARD_INVALID_CELLS_NUMBER if the cells number is lower than
+ * 		1, ERROR_INIT_BOARD_INVALID_PLAYERS_NUMBER if the players number is
+ * 		lower than 1.
+ */
 int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
 {
 	int c;
@@ -29,6 +41,14 @@ int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
 	return 1;
 }
 
+/**
+ * Function to free the memory used by a board. Will free the board's cells and
+ * players, which have been allocated with a calloc.
+ *
+ * @param s_board *b The board to free
+ *
+ * @return void
+ */
 void free_board(s_board *b)
 {
 	free(b->cells);
@@ -37,6 +57,15 @@ void free_board(s_board *b)
 	b->players = NULL;
 }
 
+/**
+ * Add a player to the board.
+ *
+ * @param s_board *b
+ * @param s_player *p
+ *
+ * @return int -1 if the board can not have more players, the player index in
+ * 		the players' list else.
+ */
 int board_add_player(s_board *b, s_player *p)
 {
 	int cell_index = -1;
@@ -60,6 +89,15 @@ int board_add_player(s_board *b, s_player *p)
 	return cell_index;
 }
 
+/**
+ * Function to get the list of the cells belonging to a given player.
+ *
+ * @param s_board *b The board
+ * @param s_player *p The current player
+ * @param s_cell **player_cells The cells list to populate
+ *
+ * @return int The player's number of cells
+ */
 int board_get_player_cells(s_board *b, s_player *p, s_cell **player_cells)
 {
 	int c, nb_cells;
