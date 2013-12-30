@@ -6,7 +6,7 @@
 #include "player/human.h"
 
 /**
- * Function to initialize a player
+ * Function to initialise a player
  *
  * @param s_player *p THe player
  * @param const char *name The player's name
@@ -15,11 +15,10 @@
  * 		strategy he must adopt. Not implemented yet
  * @param const int nb_pawns The player's initial number of pawns
  *
- * @return int 1 if the player is correctly initialized,
+ * @return int 1 if the player is correctly initialised,
  * 		ERROR_INIT_EMPTY_NAME if the provided name is empty, ERROR_INIT_STRATEGY
  * 		if the strategy is incorrect, ERROR_INIT_NB_PAWNS if the number of pawns
  * 		is < 1
- *
  */
 int init_player(
 	s_player *p,
