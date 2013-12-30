@@ -9,10 +9,15 @@
  * @param const int nb_cells The board's number of cells. Used to devine the
  * 		cell's max number of neigbours.
  *
- * @return 1
+ * @return int 1 if the cell is correctly initialised,
+ * 		ERROR_INIT_INVALID_CELLS_NUMBER if the number of cells is < 1
  */
 int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 {
+	if (nb_cells < 1) {
+		return ERROR_INIT_INVALID_CELLS_NUMBER;
+	}
+
 	c->id = id;
 	c->owner = NULL;
 	c->nb_pawns = 0;
