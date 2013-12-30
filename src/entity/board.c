@@ -7,6 +7,14 @@ int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
 {
 	int c;
 
+	if (nb_cells < 1) {
+		return ERROR_INIT_BOARD_INVALID_CELLS_NUMBER;
+	}
+
+	if (nb_players < 1) {
+		return ERROR_INIT_BOARD_INVALID_PLAYERS_NUMBER;
+	}
+
 	b->nb_cells = nb_cells;
 	b->cells = (s_cell*) calloc((size_t) nb_cells, sizeof(s_cell));
 
