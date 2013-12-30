@@ -10,12 +10,12 @@
  * 		cell's max number of neigbours.
  *
  * @return int 1 if the cell is correctly initialised,
- * 		ERROR_INIT_INVALID_CELLS_NUMBER if the number of cells is < 1
+ * 		ERROR_INIT_CELL_INVALID_CELLS_NUMBER if the number of cells is < 1
  */
 int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 {
 	if (nb_cells < 1) {
-		return ERROR_INIT_INVALID_CELLS_NUMBER;
+		return ERROR_INIT_CELL_INVALID_CELLS_NUMBER;
 	}
 
 	c->id = id;

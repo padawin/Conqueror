@@ -16,9 +16,9 @@
  * @param const int nb_pawns The player's initial number of pawns
  *
  * @return int 1 if the player is correctly initialised,
- * 		ERROR_INIT_EMPTY_NAME if the provided name is empty, ERROR_INIT_STRATEGY
- * 		if the strategy is incorrect, ERROR_INIT_NB_PAWNS if the number of pawns
- * 		is < 1
+ * 		ERROR_INIT_PLAYER_EMPTY_NAME if the provided name is empty,
+ * 		ERROR_INIT_PLAYER_STRATEGY if the strategy is incorrect,
+ * 		ERROR_INIT_PLAYER_NB_PAWNS if the number of pawns is < 1.
  */
 int init_player(
 	s_player *p,
@@ -29,17 +29,17 @@ int init_player(
 )
 {
 	if (name == NULL)
-		return ERROR_INIT_EMPTY_NAME;
+		return ERROR_INIT_PLAYER_EMPTY_NAME;
 
 	p->name = name;
 
 	if (strategy != STRATEGY_NONE && strategy != STRATEGY_SPREAD && strategy != STRATEGY_OFFENCE)
-		return ERROR_INIT_STRATEGY;
+		return ERROR_INIT_PLAYER_STRATEGY;
 
 	p->strategy = strategy;
 
 	if (nb_pawns < 1)
-		return ERROR_INIT_NB_PAWNS;
+		return ERROR_INIT_PLAYER_NB_PAWNS;
 
 	p->nb_pawns = nb_pawns;
 	p->is_human = is_human;
