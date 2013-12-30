@@ -17,6 +17,13 @@ int _select_starting_player(int nb_players);
 short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
+/**
+ * Game main loop
+ *
+ * @param s_board *b The game's board
+ *
+ * @return s_player* Pointer to the game's winner
+ */
 s_player *game_start(s_board *b)
 {
 	int current_player_index, player_nb_cells, cell_to_leave;
@@ -91,11 +98,34 @@ s_player *game_start(s_board *b)
 	return winner;
 }
 
+/**
+ * Randomly select an integer between 0 (included) and the number of players
+ * (excluded). This integer will be the index of the player who will play first.
+ *
+ * @param int nb_players
+ *
+ * @return int The index of the starting player
+ */
 int _select_starting_player(int nb_players)
 {
 	return (int) utils_get_random_int(0, (unsigned int) nb_players);
 }
 
+/**
+ * This function selects the next player who must play.
+ * The next player is the first who still has pawns and who has more pawns than
+ * cells.
+ * If all players are tested and the current player is reached again, that means
+ * none can play so the current player is the game's winner.
+ *
+ * @param s_board *b The game's board
+ * @param int *current_player_index The current player index in the players' list
+ * @param s_player *current_player Pointer to the current player
+ * @param s_player *winner Game's winner
+ *
+ * @return short 0 if there is no next player (which means a winner is found), 1
+ * 		if a next player is found
+ */
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner)
 {
 	int p;
@@ -124,6 +154,15 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
 /**
  * The player tries to dominate the cell with nb_pawns.
  *
+ * @param s_board *b The game's board
+ * @param s_player *current_player The current player, who is starting a fight
+ * @param struct s_cell *cell The cell where the fight is happening
+ * @param int nb_pawns The number of pawns the current player wants to move to
+ * 		the cell
+ * @param s_player **winner The game winner
+ *
+ * @return short FIGHT_WON if current_player won the fight, FIGHT_DRAW if nobody
+ * 		won, FIGHT_LOST if current_player lost the fight
  */
 short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner)
 {

@@ -38,11 +38,17 @@ void ui_prompt(const char *prompt, char *command, size_t command_size)
 	utils_get_line(prompt, command, command_size);
 }
 
+/**
+ * Displays an error message
+ */
 void ui_error(const char *msg)
 {
 	fprintf(stderr, "%s\n", msg);
 }
 
+/**
+ * Display an information message
+ */
 void ui_info(const char *msg)
 {
 	printf("%s\n", msg);
