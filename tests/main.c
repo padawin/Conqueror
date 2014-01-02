@@ -1,8 +1,8 @@
 #include "testbuilder.h"
 #include "testboard.h"
 
-void testbuilder();
-void testboard();
+void testbuilder(void);
+void testboard(void);
 
 int main()
 {
@@ -11,12 +11,12 @@ int main()
 	return 1;
 }
 
-void testbuilder()
+void testbuilder(void)
 {
 	test_board_creation();
 }
 
-void testboard()
+void testboard(void)
 {
 	test_init_board();
 	test_free_board();
