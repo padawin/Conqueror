@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "builder.h"
 #include "entity/board.h"
 #include "entity/player.h"
 #include "testboard.h"
