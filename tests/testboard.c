@@ -10,15 +10,16 @@ void test_init_board(void)
 {
 	printf("\ntest_init_board\n");
 	s_board b;
+	int result;
 
-	init_board(&b, 4, 2);
+	result = init_board(&b, 4, 2);
 
+	assert_int_equals(result, INIT_BOARD_OK);
 	assert_int_equals(b.nb_cells, 4);
 	assert_int_equals(b.nb_players, 0);
 	assert_int_equals(b.nb_total_players, 2);
 
 	free_board(&b);
-
 }
 
 void test_free_board(void)
