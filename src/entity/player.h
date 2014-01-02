@@ -15,12 +15,12 @@ struct s_player;
 #define ERROR_INIT_NB_PAWNS -3
 
 typedef struct s_player {
-	int id;
 	const char *name;
-	short is_human;
-	int strategy;
-	int nb_pawns;
+	int id;
 	int nb_cells;
+	int nb_pawns;
+	int strategy;
+	int is_human;
 } s_player;
 
 int init_player(

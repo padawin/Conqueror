@@ -5,11 +5,11 @@
 #include "player.h"
 
 typedef struct {
+	s_player **players;
+	struct s_cell *cells;
 	int nb_cells;
 	int nb_players;
 	int nb_total_players;
-	s_player **players;
-	struct s_cell *cells;
 } s_board;
 
 int init_board(s_board *b, int nb_cells, int nb_players);

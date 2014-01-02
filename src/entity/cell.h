@@ -8,12 +8,12 @@ struct s_cell;
 #define ERROR_MAX_NEIGHBOURS_REACHED -1
 
 typedef struct s_cell {
-	int id;
 	struct s_player *owner;
+	struct s_cell **neighbours;
+	int id;
 	int nb_pawns;
 	int nb_neighbours;
 	int nb_max_neighbours;
-	struct s_cell **neighbours;
 } s_cell;
 
 int init_cell(s_cell *c, const int id, const int nb_cells);
