@@ -13,7 +13,7 @@ int main()
 
 void testbuilder(void)
 {
-	test_board_creation();
+	test_builder();
 }
 
 void testboard(void)

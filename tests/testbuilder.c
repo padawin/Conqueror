@@ -4,7 +4,7 @@
 #include "builder.h"
 #include "test.h"
 
-void test_board_creation()
+void test_builder(void)
 {
 	s_board b;
 	int c;
