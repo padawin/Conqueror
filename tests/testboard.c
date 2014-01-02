@@ -39,7 +39,8 @@ void test_board_add_player(void)
 {
 	printf("\ntest_board_add_player\n");
 	s_board b;
-	int index_p1, index_p2, index_p3, nb_cells;
+	int index_p1, index_p2, index_p3;
+	uint8_t nb_cells;
 	s_player p1, p2, p3;
 
 	nb_cells = 4;
@@ -77,7 +78,8 @@ void test_board_get_player_cells(void)
 	s_board b;
 	s_player p1;
 	struct s_cell **player_cells;
-	int nb_cells, nb_players_cells;
+	uint8_t nb_cells;
+	int nb_players_cells;
 
 	nb_cells = 4;
 	init_board(&b, nb_cells, 2);
