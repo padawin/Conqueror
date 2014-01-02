@@ -38,7 +38,7 @@ int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
 		init_cell(&b->cells[c], c + 1, nb_cells);
 	}
 
-	return 1;
+	return INIT_BOARD_OK;
 }
 
 /**

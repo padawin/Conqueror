@@ -5,6 +5,7 @@
 #include "cell.h"
 #include "player.h"
 
+#define INIT_BOARD_OK 1
 #define ERROR_INIT_BOARD_INVALID_CELLS_NUMBER -1
 #define ERROR_INIT_BOARD_INVALID_PLAYERS_NUMBER -2
 
