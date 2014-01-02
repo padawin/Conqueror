@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "builder.h"
 #include "entity/board.h"
 #include "entity/player.h"
@@ -7,6 +8,7 @@
 
 void test_init_board(void)
 {
+	printf("\ntest_init_board\n");
 	s_board b;
 
 	init_board(&b, 4, 2);
@@ -21,6 +23,7 @@ void test_init_board(void)
 
 void test_free_board(void)
 {
+	printf("\ntest_free_board\n");
 	s_board b;
 
 	init_board(&b, 4, 2);
@@ -33,6 +36,7 @@ void test_free_board(void)
 
 void test_board_add_player(void)
 {
+	printf("\ntest_board_add_player\n");
 	s_board b;
 	int index_p1, index_p2, index_p3, nb_cells;
 	s_player p1, p2, p3;
@@ -68,6 +72,7 @@ void test_board_add_player(void)
 
 void test_board_get_player_cells(void)
 {
+	printf("\ntest_board_get_player_cells\n");
 	s_board b;
 	s_player p1;
 	struct s_cell **player_cells;
