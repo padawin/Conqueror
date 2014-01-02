@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <limits.h>
 #include <errno.h>
@@ -93,7 +94,7 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 	return choosen_cell;
 }
 
-int human_select_nb_pawns(struct s_cell *src_cell)
+uint16_t human_select_nb_pawns(struct s_cell *src_cell)
 {
 	char nb_pawns_str[4], msg[64];
 	char *endptr;
@@ -130,7 +131,7 @@ int human_select_nb_pawns(struct s_cell *src_cell)
 
 	} while (nb_pawns == -1);
 
-	return (int) nb_pawns;
+	return (uint16_t) nb_pawns;
 }
 
 /**

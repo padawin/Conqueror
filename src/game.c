@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "game.h"
 #include "entity/board.h"
 #include "entity/player.h"
@@ -13,12 +14,13 @@
 #define FIGHT_DRAW 3
 
 int _select_starting_player(int nb_players);
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player **winner);
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 s_player *game_start(s_board *b)
 {
-	int current_player_index, player_nb_cells, cell_to_leave, nb_pawns_to_move;
+	int current_player_index, player_nb_cells, cell_to_leave;
+	uint16_t nb_pawns_to_move;
 	short fight_result;
 	s_player *winner, *current_player;
 	struct s_cell **player_cells;
@@ -55,7 +57,8 @@ s_player *game_start(s_board *b)
 				cell_to_goto->owner = current_player;
 				current_player->nb_cells++;
 			}
-			cell_to_goto->nb_pawns += nb_pawns_to_move;
+// @XXX
+			cell_to_goto->nb_pawns = (uint16_t) (cell_to_goto->nb_pawns + nb_pawns_to_move);
 			fight_result = NO_FIGHT;
 		}
 		else {
@@ -66,7 +69,8 @@ s_player *game_start(s_board *b)
 		}
 
 		if (fight_result != FIGHT_DRAW) {
-			player_cells[cell_to_leave]->nb_pawns -= nb_pawns_to_move;
+// @XXX
+			player_cells[cell_to_leave]->nb_pawns = (uint16_t) (player_cells[cell_to_leave]->nb_pawns + nb_pawns_to_move);
 		}
 
 		if (winner == NULL) {
@@ -121,7 +125,7 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
  * The player tries to dominate the cell with nb_pawns.
  *
  */
-short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_pawns, s_player **winner)
+short _fight(s_board *b, s_player *current_player, struct s_cell *cell, uint16_t nb_pawns, s_player **winner)
 {
 	short result;
 	int p;
@@ -138,11 +142,13 @@ short _fight(s_board *b, s_player *current_player, struct s_cell *cell, int nb_p
 
 	if (result == FIGHT_LOST) {
 		ui_info("You lost the fight");
-		current_player->nb_pawns -= nb_pawns;
+// @XXX
+		current_player->nb_pawns = (uint16_t) (current_player->nb_pawns - nb_pawns);
 	}
 	else if (result == FIGHT_WON) {
 		ui_info("You won the fight");
-		cell->owner->nb_pawns -= cell->nb_pawns;
+// @XXX
+		cell->owner->nb_pawns = (uint16_t) (cell->owner->nb_pawns - cell->nb_pawns);
 		cell->owner->nb_cells--;
 		cell->owner = current_player;
 		cell->nb_pawns = nb_pawns;

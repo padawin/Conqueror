@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdint.h>
 #include "cell.h"
 #include "player.h"
 #include "player/ai.h"
@@ -9,7 +10,7 @@ int init_player(
 	const char *name,
 	const short is_human,
 	const int strategy,
-	const int nb_pawns
+	const uint16_t nb_pawns
 )
 {
 	if (name == NULL)
@@ -58,9 +59,9 @@ struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell)
 	return dst_cell;
 }
 
-int player_select_nb_pawns(s_player *p, struct s_cell *src_cell)
+uint16_t player_select_nb_pawns(s_player *p, struct s_cell *src_cell)
 {
-	int nb_pawns;
+	uint16_t nb_pawns;
 
 	if (p->is_human) {
 		nb_pawns = human_select_nb_pawns(src_cell);
