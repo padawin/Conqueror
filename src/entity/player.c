@@ -8,7 +8,7 @@
 /**
  * Function to initialise a player
  *
- * @param s_player *p THe player
+ * @param s_player *p The player
  * @param const char *name The player's name
  * @param const short is_human A flag to know if the player is human or an AI
  * @param const int strategy If the player is an AI, this defines the game
