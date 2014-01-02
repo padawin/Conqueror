@@ -9,7 +9,7 @@
  * |       |
  * 4 ----- 3
  */
-int builder_create_small_board(s_board *b, int nb_player)
+int builder_create_small_board(s_board *b, uint8_t nb_player)
 {
 	int c;
 

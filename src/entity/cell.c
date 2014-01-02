@@ -1,13 +1,13 @@
 #include <stdlib.h>
 #include "cell.h"
 
-int init_cell(s_cell *c, const int id, const int nb_cells)
+int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 {
 	c->id = id;
 	c->owner = NULL;
 	c->nb_pawns = 0;
 	c->nb_neighbours = 0;
-	c->nb_max_neighbours = nb_cells - 1;
+	c->nb_max_neighbours = (uint8_t) (nb_cells - 1);
 	// @XXX: Might cause some issues here
 	c->neighbours = calloc((size_t) c->nb_max_neighbours, sizeof(s_cell*));
 
@@ -24,7 +24,7 @@ void cell_set_owner(s_cell *c, struct s_player *owner)
 	c->owner = owner;
 }
 
-void cell_set_nb_pawns(s_cell *c, const int nb_pawns)
+void cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
 {
 	c->nb_pawns = nb_pawns;
 }

@@ -3,7 +3,7 @@
 #include "board.h"
 #include "../utils.h"
 
-int init_board(s_board *b, int nb_cells, int nb_players)
+int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
 {
 	int c;
 

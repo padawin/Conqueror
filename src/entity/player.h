@@ -3,6 +3,7 @@
 
 struct s_player;
 
+#include <stdint.h>
 #include "cell.h"
 
 #define STRATEGY_NONE 0
@@ -17,8 +18,8 @@ struct s_player;
 typedef struct s_player {
 	const char *name;
 	int id;
-	int nb_cells;
-	int nb_pawns;
+	uint8_t nb_cells;
+	uint16_t nb_pawns;
 	int strategy;
 	int is_human;
 } s_player;
@@ -28,10 +29,10 @@ int init_player(
 	const char *name,
 	const short is_human,
 	const int strategy,
-	const int nb_pawns
+	const uint16_t nb_pawns
 );
 int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells);
 struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell);
-int player_select_nb_pawns(s_player *p, struct s_cell *src_cell);
+uint16_t player_select_nb_pawns(s_player *p, struct s_cell *src_cell);
 
 #endif
