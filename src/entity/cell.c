@@ -64,9 +64,18 @@ void cell_set_owner(s_cell *c, struct s_player *owner)
  *
  * @return void
  */
-void cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
+int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
 {
+	if (c->owner == NULL) {
+		return CELL_ERROR_SET_PAWNS_NO_OWNER;
+	}
+
+	if (nb_pawns > c->owner->nb_pawns) {
+		return CELL_ERROR_SET_PAWNS_NOT_ENOUGH_PAWNS;
+	}
+
 	c->nb_pawns = nb_pawns;
+	return CELL_SET_PAWNS_OK;
 }
 
 /**
