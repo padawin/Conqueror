@@ -1,6 +1,7 @@
 BINDIR := bin
 SRCDIR := src
 TESTSDIR := tests
+BUILDDIR := build
 
 PROG   := conqueror
 CC     := gcc
