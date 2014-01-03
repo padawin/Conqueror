@@ -32,7 +32,7 @@ build/%.o: src/%.c
 	$(CC) $(CCDYNAMICFLAGS) -c -MMD $(patsubst $(BUILDDIR)%.o,$(SRCDIR)%.c,$@) -o $@
 
 clean:
-	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete -o -name "$(PROG)" -delete -o -name "test" -delete
+	rm -rf $(BINDIR) $(BUILDDIR)
 
 $(PROG): $(OBJ)
 	mkdir -p $(BINDIR)
