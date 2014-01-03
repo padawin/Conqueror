@@ -34,7 +34,7 @@ void test_free_cell(void)
 
 void test_cell_set_owner(void)
 {
-	printf("\ncell_set_owner\n");
+	printf("\ntest_cell_set_owner\n");
 	s_cell c;
 	s_player p;
 	init_cell(&c, 1, 4);
