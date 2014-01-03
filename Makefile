@@ -5,11 +5,11 @@ CFLAGS := -g -O2 -Wall -Wextra -Wwrite-strings -Wformat=2 -Wconversion -Wmissing
 LDFLAGS:= -I./src
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -fPIC
 
-SRC := $(wildcard src/*.c src/*/*.c src/*/*/*.c)
+SRC := $(shell find src/ -type f -name '*.c')
 OBJ := $(patsubst %.c,%.o,$(SRC))
 DEP := $(patsubst %.c,%.deps,$(SRC))
 
-TESTSRC := $(wildcard tests/*.c tests/*/*.c tests/*/*/*.c src/*.c src/*/*.c src/*/*/*.c)
+TESTSRC := $(shell find src/ tests/ -type f -name '*.c')
 TESTSRC := $(filter-out src/main.c, $(TESTSRC))
 TESTOBJ := $(patsubst %.c,%.o,$(TESTSRC))
 TESTDEP := $(patsubst %.c,%.deps,$(TESTSRC))
