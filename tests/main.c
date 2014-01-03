@@ -31,4 +31,5 @@ void testcell(void)
 {
 	test_init_cell();
 	test_free_cell();
+	test_cell_set_owner();
 }

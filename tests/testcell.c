@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "entity/cell.h"
+#include "entity/player.h"
 #include "testcell.h"
 #include "test.h"
 
@@ -29,4 +30,19 @@ void test_free_cell(void)
 	free_cell(&c);
 
 	assert_null(c.neighbours);
+}
+
+void test_cell_set_owner(void)
+{
+	printf("\ncell_set_owner\n");
+	s_cell c;
+	s_player p;
+	init_cell(&c, 1, 4);
+	init_player(&p, "test", 1, 1,10);
+
+	assert_null(c.owner);
+	cell_set_owner(&c, &p);
+	assert_str_equals(c.owner->name, "test");
+
+	free_cell(&c);
 }

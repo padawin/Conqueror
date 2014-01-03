@@ -3,5 +3,6 @@
 
 void test_init_cell(void);
 void test_free_cell(void);
+void test_cell_set_owner(void);
 
 #endif
