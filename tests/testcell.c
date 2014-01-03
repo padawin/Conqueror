@@ -46,3 +46,30 @@ void test_cell_set_owner(void)
 
 	free_cell(&c);
 }
+
+void test_cell_set_nb_pawns(void)
+{
+	printf("\ntest_cell_set_nb_pawns\n");
+	s_cell c;
+	s_player p;
+	int result;
+
+	init_cell(&c, 1, 4);
+	init_player(&p, "test", 1, 1, 10);
+
+	result = cell_set_nb_pawns(&c, 13);
+	assert_int_equals(result, CELL_ERROR_SET_PAWNS_NO_OWNER);
+	assert_int_equals(c.nb_pawns, 0);
+	cell_set_owner(&c, &p);
+
+	result = cell_set_nb_pawns(&c, 13);
+	assert_int_equals(result, CELL_ERROR_SET_PAWNS_NOT_ENOUGH_PAWNS);
+	assert_int_equals(c.nb_pawns, 0);
+
+	result = cell_set_nb_pawns(&c, 10);
+	assert_int_equals(result, CELL_SET_PAWNS_OK);
+	assert_int_equals(c.nb_pawns, 10);
+
+	free_cell(&c);
+
+}
