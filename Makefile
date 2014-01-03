@@ -1,17 +1,22 @@
+BINDIR := bin
+SRCDIR := src
+TESTSDIR := tests
+BUILDDIR := build
+
 PROG   := conqueror
 CC     := gcc
 INCL   :=
 CFLAGS := -g -O2 -Wall -Wextra -Wwrite-strings -Wformat=2 -Wconversion -Wmissing-declarations -Wmissing-prototypes
-LDFLAGS:= -I./src
+LDFLAGS:= -I./$(SRCDIR)
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -fPIC
 
-SRC := $(shell find src/ -type f -name '*.c')
-OBJ := $(patsubst %.c,%.o,$(SRC))
-DEP := $(patsubst %.c,%.deps,$(SRC))
+SRC := $(shell find $(SRCDIR)/ -type f -name '*.c')
+OBJ := $(patsubst %.c,$(BUILDDIR)/%.o,$(SRC))
+DEP := $(patsubst %.o,%.deps,$(OBJ))
 
-TESTSRC := $(shell find src/ tests/ -type f -name '*.c')
-TESTSRC := $(filter-out src/main.c, $(TESTSRC))
-TESTOBJ := $(patsubst %.c,%.o,$(TESTSRC))
+TESTSRC := $(shell find $(SRCDIR)/ $(TESTSDIR)/ -type f -name '*.c')
+TESTSRC := $(filter-out $(SRCDIR)/main.c, $(TESTSRC))
+TESTOBJ := $(patsubst %.c,$(BUILDDIR)/%.o,$(TESTSRC))
 TESTDEP := $(patsubst %.c,%.deps,$(TESTSRC))
 
 all: $(PROG)
@@ -21,14 +26,17 @@ all: $(PROG)
 %.deps: %.c
 	$(CC) -MM $< >$@
 
-%.o: %.c
-	$(CC) $(CCDYNAMICFLAGS) -c -MMD $< -o $@
+build/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CCDYNAMICFLAGS) -c -MMD $(patsubst $(BUILDDIR)/%.o,%.c,$@) -o $@
 
 clean:
-	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete -o -name "$(PROG)" -delete -o -name "test" -delete
+	rm -rf $(BINDIR) $(BUILDDIR)
 
 $(PROG): $(OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	mkdir -p $(BINDIR)
+	$(CC) -o $(BINDIR)/$@ $^ $(LDFLAGS)
 
 test: $(TESTOBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	mkdir -p $(BINDIR)
+	$(CC) -o $(BINDIR)/$@ $^ $(LDFLAGS)
