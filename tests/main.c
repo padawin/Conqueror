@@ -1,13 +1,16 @@
 #include "testbuilder.h"
 #include "testboard.h"
+#include "testcell.h"
 
 void testbuilder(void);
 void testboard(void);
+void testcell(void);
 
 int main()
 {
 	testbuilder();
 	testboard();
+	testcell();
 	return 1;
 }
 
@@ -22,4 +25,10 @@ void testboard(void)
 	test_free_board();
 	test_board_add_player();
 	test_board_get_player_cells();
+}
+
+void testcell(void)
+{
+	test_init_cell();
+	test_free_cell();
 }
