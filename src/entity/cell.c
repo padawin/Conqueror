@@ -26,7 +26,7 @@ int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 
 	c->neighbours = calloc((size_t) c->nb_max_neighbours, sizeof(s_cell*));
 
-	return 1;
+	return INIT_CELL_OK;
 }
 
 /**

@@ -8,6 +8,7 @@ struct s_cell;
 
 #define ERROR_MAX_NEIGHBOURS_REACHED -1
 
+#define INIT_CELL_OK 1
 #define ERROR_INIT_CELL_INVALID_CELLS_NUMBER -1
 
 typedef struct s_cell {
