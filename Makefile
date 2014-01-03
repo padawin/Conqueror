@@ -11,12 +11,13 @@ LDFLAGS:= -I./$(SRCDIR)
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -fPIC
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.c')
-OBJ := $(patsubst %.c,%.o,$(SRC))
-DEP := $(patsubst %.c,%.deps,$(SRC))
+OBJ := $(patsubst $(SRCDIR)/%.c,$(BUILDDIR)/%.o,$(SRC))
+DEP := $(patsubst %.o,%.deps,$(OBJ))
 
 TESTSRC := $(shell find $(SRCDIR)/ $(TESTSDIR)/ -type f -name '*.c')
 TESTSRC := $(filter-out $(SRCDIR)/main.c, $(TESTSRC))
-TESTOBJ := $(patsubst %.c,%.o,$(TESTSRC))
+TESTOBJ := $(patsubst $(SRCDIR)/%.c,$(BUILDDIR)/%.o,$(SRC))
+TESTOBJ := $(patsubst $(TESTDIR)/%.c,$(BUILDDIR)/%.o,$(TESTOBJ))
 TESTDEP := $(patsubst %.c,%.deps,$(TESTSRC))
 
 all: $(PROG)
@@ -26,8 +27,9 @@ all: $(PROG)
 %.deps: %.c
 	$(CC) -MM $< >$@
 
-%.o: %.c
-	$(CC) $(CCDYNAMICFLAGS) -c -MMD $< -o $@
+build/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CCDYNAMICFLAGS) -c -MMD $(patsubst $(BUILDDIR)%.o,$(SRCDIR)%.c,$@) -o $@
 
 clean:
 	find . -name '*.o' -delete -o -name '*.d' -delete -o -name '*.deps' -delete -o -name "$(PROG)" -delete -o -name "test" -delete
