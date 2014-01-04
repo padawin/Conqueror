@@ -7,7 +7,7 @@
  * @param s_cell *c The cell to initialise
  * @param const int id The cell ID
  * @param const int nb_cells The board's number of cells. Used to devine the
- * 		cell's max number of neigbours.
+ * 		cell's max number of neighbours.
  *
  * @return int 1 if the cell is correctly initialised,
  * 		ERROR_INIT_CELL_INVALID_CELLS_NUMBER if the number of cells is < 1
