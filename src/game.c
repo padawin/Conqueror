@@ -77,7 +77,7 @@ s_player *game_start(s_board *b)
 
 		if (fight_result != FIGHT_DRAW) {
 // @XXX
-			player_cells[cell_to_leave]->nb_pawns = (uint16_t) (player_cells[cell_to_leave]->nb_pawns + nb_pawns_to_move);
+			player_cells[cell_to_leave]->nb_pawns = (uint16_t) (player_cells[cell_to_leave]->nb_pawns - nb_pawns_to_move);
 		}
 
 		if (current_player->nb_pawns == current_player->nb_cells) {
