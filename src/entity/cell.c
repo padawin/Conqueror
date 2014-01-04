@@ -89,11 +89,14 @@ int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
  */
 int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
 {
-	if (c->nb_neighbours == c->nb_max_neighbours)
+	if (
+		c->nb_neighbours == c->nb_max_neighbours
+		|| neighbour->nb_neighbours == neighbour->nb_max_neighbours
+	)
 		return ERROR_MAX_NEIGHBOURS_REACHED;
 
-	c->neighbours[c->nb_neighbours] = neighbour;
-	c->nb_neighbours++;
+	c->neighbours[c->nb_neighbours++] = neighbour;
+	neighbour->neighbours[neighbour->nb_neighbours++] = c;
 
 	return 1;
 }
