@@ -71,5 +71,38 @@ void test_cell_set_nb_pawns(void)
 	assert_int_equals(c.nb_pawns, 10);
 
 	free_cell(&c);
+}
 
+void test_cell_add_neighbour(void)
+{
+	printf("\ntest_cell_add_neighbour\n");
+	s_cell cells[4];
+	int c, result;
+	uint8_t nb_cells;
+
+	nb_cells = 3;
+	for (c = 0; c < 4; c++) {
+		init_cell(&cells[c], c, nb_cells);
+	}
+
+	result = cell_add_neighbour(&cells[0], &cells[1]);
+	assert_int_equals(result, CELL_ADD_NEIGHBOUR_OK);
+	assert_int_equals(cells[0].nb_neighbours, 1);
+	assert_int_equals(cells[1].nb_neighbours, 1);
+
+	result = cell_add_neighbour(&cells[0], &cells[1]);
+	assert_int_equals(result, CELL_ERROR_ALREADY_NEIGHBOUR);
+	assert_int_equals(cells[0].nb_neighbours, 1);
+	assert_int_equals(cells[1].nb_neighbours, 1);
+
+	cell_add_neighbour(&cells[0], &cells[2]);
+
+	result = cell_add_neighbour(&cells[0], &cells[3]);
+	assert_int_equals(result, CELL_ERROR_MAX_NEIGHBOURS_REACHED);
+	assert_int_equals(cells[0].nb_neighbours, nb_cells - 1);
+	assert_int_equals(cells[3].nb_neighbours, 0);
+
+	for (c = 0; c < 4; c++) {
+		free_cell(&cells[c]);
+	}
 }
