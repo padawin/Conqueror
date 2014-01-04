@@ -21,6 +21,11 @@ int _get_cell_from_command(const char *command, struct s_cell **player_cells, in
  * neighbours #: List the neighbours cells of the cell having as ID #. The cell
  * 		# Must belong to the player
  * cell #: Select the cell # to play. The cell # must belong to the player.
+ *
+ * @param struct s_cell **player_cells
+ * @param int nb_cells
+ *
+ * @return int The index of the cell to leave in the player's cells list.
  */
 int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 {
@@ -62,6 +67,13 @@ int human_select_cell_to_leave(struct s_cell **player_cells, int nb_cells)
 	return choosen_cell;
 }
 
+/**
+ * Function to select a destination cell when the player has to move pawns.
+ *
+ * @param struct s_cell *src_cell The cell the player choose to move pawns from.
+ *
+ * @return struct s_cell* A pointer to the destination cell.
+ */
 struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 {
 	int command_size;
@@ -94,6 +106,15 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 	return choosen_cell;
 }
 
+/**
+ * Function to select a number of pawns to move from src_cell.
+ * The number of pawns must be higher than 1 and lower than the number of pawns
+ * being on the cell.
+ *
+ * @param struct s_cell *src_cell
+ *
+ * @return uint16_t The number of pawns to move
+ */
 uint16_t human_select_nb_pawns(struct s_cell *src_cell)
 {
 	char nb_pawns_str[4], msg[64];
@@ -136,7 +157,13 @@ uint16_t human_select_nb_pawns(struct s_cell *src_cell)
 
 /**
  * Checks if a typed command match the provided command.
- * Returns 1 if the typed command is correct, 0 else.
+ *
+ * @param const char *typed The string the user typed
+ * @param const char *command The command to compare the type string with
+ * @param short strict If set to 1, the typed command must exactly match the
+ * 		comparison command
+ *
+ * @return short 1 if the typed command is correct, 0 else.
  */
 short _check_command(const char *typed, const char *command, short strict)
 {
@@ -160,6 +187,11 @@ short _check_command(const char *typed, const char *command, short strict)
 
 /**
  * From a typed command, extract a cell ID, which must be after the first space.
+ *
+ * @param const char *command The command to analyse
+ * @param long int *cell Pointer to the int where the cell ID must be stored
+ *
+ * @return short 0 if no id has been found or if the id is not correct
  */
 short _extract_cell_id(const char *command, long int *cell)
 {
@@ -184,6 +216,16 @@ short _extract_cell_id(const char *command, long int *cell)
 	return 1;
 }
 
+/**
+ * From a typed command, the cell id is extracted and the index (in the player's
+ * cells list) of the matching cell is returned.
+ *
+ * @param const char *command
+ * @param struct s_cell **player_cells
+ * @param int nb_cells
+ *
+ * @return int The index of the cell, if the cell ID is correct, -1 else.
+ */
 int _get_cell_from_command(const char *command, struct s_cell **player_cells, int nb_cells)
 {
 	long int cell;

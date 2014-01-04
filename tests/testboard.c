@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include "builder.h"
 #include "entity/board.h"
 #include "entity/player.h"
 #include "testboard.h"
@@ -6,20 +8,23 @@
 
 void test_init_board(void)
 {
+	printf("\ntest_init_board\n");
 	s_board b;
+	int result;
 
-	init_board(&b, 4, 2);
+	result = init_board(&b, 4, 2);
 
+	assert_int_equals(result, INIT_BOARD_OK);
 	assert_int_equals(b.nb_cells, 4);
 	assert_int_equals(b.nb_players, 0);
 	assert_int_equals(b.nb_total_players, 2);
 
 	free_board(&b);
-
 }
 
 void test_free_board(void)
 {
+	printf("\ntest_free_board\n");
 	s_board b;
 
 	init_board(&b, 4, 2);
@@ -32,8 +37,10 @@ void test_free_board(void)
 
 void test_board_add_player(void)
 {
+	printf("\ntest_board_add_player\n");
 	s_board b;
-	int index_p1, index_p2, index_p3, nb_cells;
+	int index_p1, index_p2, index_p3;
+	uint8_t nb_cells;
 	s_player p1, p2, p3;
 
 	nb_cells = 4;
@@ -67,10 +74,12 @@ void test_board_add_player(void)
 
 void test_board_get_player_cells(void)
 {
+	printf("\ntest_board_get_player_cells\n");
 	s_board b;
 	s_player p1;
 	struct s_cell **player_cells;
-	int nb_cells, nb_players_cells;
+	uint8_t nb_cells;
+	int nb_players_cells;
 
 	nb_cells = 4;
 	init_board(&b, nb_cells, 2);

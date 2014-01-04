@@ -1,41 +1,112 @@
 #include <stdlib.h>
 #include "cell.h"
 
+/**
+ * Function to initialise a cell.
+ *
+ * @param s_cell *c The cell to initialise
+ * @param const int id The cell ID
+ * @param const int nb_cells The board's number of cells. Used to devine the
+ * 		cell's max number of neighbours.
+ *
+ * @return int 1 if the cell is correctly initialised,
+ * 		ERROR_INIT_CELL_INVALID_CELLS_NUMBER if the number of cells is < 1
+ */
 int init_cell(s_cell *c, const int id, const uint8_t nb_cells)
 {
+	if (nb_cells < 1) {
+		return ERROR_INIT_CELL_INVALID_CELLS_NUMBER;
+	}
+
 	c->id = id;
 	c->owner = NULL;
 	c->nb_pawns = 0;
 	c->nb_neighbours = 0;
 	c->nb_max_neighbours = (uint8_t) (nb_cells - 1);
-	// @XXX: Might cause some issues here
+
 	c->neighbours = calloc((size_t) c->nb_max_neighbours, sizeof(s_cell*));
 
-	return 1;
+	return INIT_CELL_OK;
 }
 
+/**
+ * Function to free the memory used by a cell. Will free the cell's neighbours,
+ * which have been allocated with a calloc.
+ *
+ * @param s_cell *c The cell to free
+ *
+ * @return void
+ */
 void free_cell(s_cell *c)
 {
 	free(c->neighbours);
+	c->neighbours = NULL;
 }
 
+/**
+ * Set the cell owner
+ *
+ * @param s_cell *c
+ * @param struct s_player *owner
+ *
+ * @return void
+ */
 void cell_set_owner(s_cell *c, struct s_player *owner)
 {
 	c->owner = owner;
 }
 
-void cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
+/**
+ * Set the cell's number of pawns
+ *
+ * @param s_cell *c
+ * @param const int nb_pawns
+ *
+ * @return void
+ */
+int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
 {
+	if (c->owner == NULL) {
+		return CELL_ERROR_SET_PAWNS_NO_OWNER;
+	}
+
+	if (nb_pawns > c->owner->nb_pawns) {
+		return CELL_ERROR_SET_PAWNS_NOT_ENOUGH_PAWNS;
+	}
+
 	c->nb_pawns = nb_pawns;
+	return CELL_SET_PAWNS_OK;
 }
 
+/**
+ * Add a neighbour to a cell.
+ *
+ * @param s_cell *c
+ * @param struct s_cell *neighbour
+ *
+ * @return int CELL_ADD_NEIGHBOUR_OK if the neighbour is added,
+ * 		ERROR_MAX_NEIGHBOURS_REACHED if the cell or the neighbour cannot have
+ * 		more neighbours or ERROR_ALREADY_NEIGHBOUR if neighbour is already a
+ * 		neighbour of c.
+ */
 int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
 {
-	if (c->nb_neighbours == c->nb_max_neighbours)
-		return ERROR_MAX_NEIGHBOURS_REACHED;
+	int n;
 
-	c->neighbours[c->nb_neighbours] = neighbour;
-	c->nb_neighbours++;
+	if (
+		c->nb_neighbours == c->nb_max_neighbours
+		|| neighbour->nb_neighbours == neighbour->nb_max_neighbours
+	)
+		return CELL_ERROR_MAX_NEIGHBOURS_REACHED;
 
-	return 1;
+	for (n = 0; n < c->nb_neighbours && c->neighbours[n]->id != neighbour->id; n++);
+
+	if (n < c->nb_neighbours) {
+		return CELL_ERROR_ALREADY_NEIGHBOUR;
+	}
+
+	c->neighbours[c->nb_neighbours++] = neighbour;
+	neighbour->neighbours[neighbour->nb_neighbours++] = c;
+
+	return CELL_ADD_NEIGHBOUR_OK;
 }

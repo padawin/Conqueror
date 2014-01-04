@@ -1,11 +1,13 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "testbuilder.h"
 #include "entity/board.h"
 #include "builder.h"
 #include "test.h"
 
-void test_board_creation()
+void test_builder(void)
 {
+	printf("\ntest_builder\n");
 	s_board b;
 	int c;
 

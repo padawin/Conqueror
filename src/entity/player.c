@@ -5,6 +5,21 @@
 #include "player/ai.h"
 #include "player/human.h"
 
+/**
+ * Function to initialise a player
+ *
+ * @param s_player *p The player
+ * @param const char *name The player's name
+ * @param const short is_human A flag to know if the player is human or an AI
+ * @param const int strategy If the player is an AI, this defines the game
+ * 		strategy he must adopt. Not implemented yet
+ * @param const int nb_pawns The player's initial number of pawns
+ *
+ * @return int 1 if the player is correctly initialised,
+ * 		ERROR_INIT_PLAYER_EMPTY_NAME if the provided name is empty,
+ * 		ERROR_INIT_PLAYER_STRATEGY if the strategy is incorrect,
+ * 		ERROR_INIT_PLAYER_NB_PAWNS if the number of pawns is < 1.
+ */
 int init_player(
 	s_player *p,
 	const char *name,
@@ -14,17 +29,17 @@ int init_player(
 )
 {
 	if (name == NULL)
-		return ERROR_INIT_EMPTY_NAME;
+		return ERROR_INIT_PLAYER_EMPTY_NAME;
 
 	p->name = name;
 
 	if (strategy != STRATEGY_NONE && strategy != STRATEGY_SPREAD && strategy != STRATEGY_OFFENCE)
-		return ERROR_INIT_STRATEGY;
+		return ERROR_INIT_PLAYER_STRATEGY;
 
 	p->strategy = strategy;
 
 	if (nb_pawns < 1)
-		return ERROR_INIT_NB_PAWNS;
+		return ERROR_INIT_PLAYER_NB_PAWNS;
 
 	p->nb_pawns = nb_pawns;
 	p->is_human = is_human;
@@ -33,6 +48,17 @@ int init_player(
 	return 1;
 }
 
+/**
+ * Wrapper function to ask the player to choose a cell where some pawns will
+ * move from. Depending on if the player is human or AI, a specific function
+ * will be called.
+ *
+ * @param s_player *p The player
+ * @param struct s_cell **player_cells The cells belonging to this player
+ * @param int nb_cells The number of cells the player owns
+ *
+ * @return int the id of the cell the player will leave
+ */
 int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int nb_cells)
 {
 	int cell_id;
@@ -46,6 +72,17 @@ int player_select_cell_to_leave(s_player *p, struct s_cell **player_cells, int n
 	return cell_id;
 }
 
+/**
+ * Wrapper function to ask the player to choose a cell where some pawns will
+ * move to. Depending on if the player is human or AI, a specific function
+ * will be called.
+ *
+ * @param s_player *p The player
+ * @param struct s_cell *src_cell The cell the pawns come from. The destination
+ * 		cell must be a neighbour of the source cell.
+ *
+ * @return int the id of the cell the player will try to go to.
+ */
 struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell)
 {
 	struct s_cell *dst_cell;
@@ -59,6 +96,15 @@ struct s_cell *player_select_cell_to_go_to(s_player *p, struct s_cell *src_cell)
 	return dst_cell;
 }
 
+/**
+ * Wrapper function to ask the player to choose a number of pawns to move.
+ * Depending on if the player is human or AI, a specific function will be called
+ *
+ * @param s_player *p The player
+ * @param struct s_cell *src_cell The cell the player will leave
+ *
+ * @return uint16_t The number of pawns the player will move
+ */
 uint16_t player_select_nb_pawns(s_player *p, struct s_cell *src_cell)
 {
 	uint16_t nb_pawns;
