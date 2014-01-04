@@ -86,15 +86,24 @@ int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
  *
  * @return int CELL_ADD_NEIGHBOUR_OK if the neighbour is added,
  * 		ERROR_MAX_NEIGHBOURS_REACHED if the cell or the neighbour cannot have
- * 		more neighbours.
+ * 		more neighbours or ERROR_ALREADY_NEIGHBOUR if neighbour is already a
+ * 		neighbour of c.
  */
 int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
 {
+	int n;
+
 	if (
 		c->nb_neighbours == c->nb_max_neighbours
 		|| neighbour->nb_neighbours == neighbour->nb_max_neighbours
 	)
 		return CELL_ERROR_MAX_NEIGHBOURS_REACHED;
+
+	for (n = 0; n < c->nb_neighbours && c->neighbours[n]->id != neighbour->id; n++);
+
+	if (n < c->nb_neighbours) {
+		return CELL_ERROR_ALREADY_NEIGHBOUR;
+	}
 
 	c->neighbours[c->nb_neighbours++] = neighbour;
 	neighbour->neighbours[neighbour->nb_neighbours++] = c;

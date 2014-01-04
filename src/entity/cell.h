@@ -7,6 +7,7 @@ struct s_cell;
 #include "player.h"
 
 #define CELL_ERROR_MAX_NEIGHBOURS_REACHED -1
+#define CELL_ERROR_ALREADY_NEIGHBOUR -2
 
 #define CELL_ERROR_SET_PAWNS_NO_OWNER -1
 #define CELL_ERROR_SET_PAWNS_NOT_ENOUGH_PAWNS -2
