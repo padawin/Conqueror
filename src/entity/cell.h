@@ -6,11 +6,13 @@ struct s_cell;
 #include <stdint.h>
 #include "player.h"
 
-#define ERROR_MAX_NEIGHBOURS_REACHED -1
+#define CELL_ERROR_MAX_NEIGHBOURS_REACHED -1
+
 #define CELL_ERROR_SET_PAWNS_NO_OWNER -1
 #define CELL_ERROR_SET_PAWNS_NOT_ENOUGH_PAWNS -2
 
 #define CELL_SET_PAWNS_OK 1
+#define CELL_ADD_NEIGHBOUR_OK 1
 
 #define INIT_CELL_OK 1
 #define ERROR_INIT_CELL_INVALID_CELLS_NUMBER -1
