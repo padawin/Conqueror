@@ -89,7 +89,7 @@ int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
  * 		more neighbours or ERROR_ALREADY_NEIGHBOUR if neighbour is already a
  * 		neighbour of c.
  */
-int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
+int cell_add_neighbour(s_cell *c, s_cell *neighbour)
 {
 	int n;
 

@@ -31,6 +31,6 @@ int init_cell(s_cell *c, const int id, const uint8_t nb_cells);
 void free_cell(s_cell *c);
 void cell_set_owner(s_cell *c, struct s_player *owner);
 int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns);
-int cell_add_neighbour(s_cell *c, struct s_cell *neighbour);
+int cell_add_neighbour(s_cell *c, s_cell *neighbour);
 
 #endif
