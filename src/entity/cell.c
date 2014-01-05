@@ -54,6 +54,7 @@ void free_cell(s_cell *c)
 void cell_set_owner(s_cell *c, struct s_player *owner)
 {
 	c->owner = owner;
+	owner->nb_cells = (uint8_t) (owner->nb_cells + 1);
 }
 
 /**
