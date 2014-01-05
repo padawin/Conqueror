@@ -31,16 +31,16 @@ int init_player(
 )
 {
 	if (name[0] == '\0')
-		return ERROR_INIT_PLAYER_EMPTY_NAME;
+		return PLAYER_ERROR_INIT_PLAYER_EMPTY_NAME;
 
 	if (
 		(is_human && strategy != STRATEGY_NONE)
 		|| (!is_human && strategy != STRATEGY_SPREAD && strategy != STRATEGY_OFFENCE)
 	)
-		return ERROR_INIT_PLAYER_STRATEGY;
+		return PLAYER_ERROR_INIT_PLAYER_STRATEGY;
 
 	if (nb_pawns < 1)
-		return ERROR_INIT_PLAYER_NB_PAWNS;
+		return PLAYER_ERROR_INIT_PLAYER_NB_PAWNS;
 
 	p->nb_pawns = nb_pawns;
 	p->strategy = strategy;
@@ -48,7 +48,7 @@ int init_player(
 	p->is_human = is_human;
 	p->nb_cells = 0;
 
-	return 1;
+	return INIT_PLAYER_OK;
 }
 
 /**
