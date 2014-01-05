@@ -142,6 +142,11 @@ short player_move_to_cell(s_player *p, uint16_t nb_pawns, struct s_cell *src_cel
 {
 	short result;
 
+	if (nb_pawns > p->nb_pawns)
+		return PLAYER_ERROR_MOVE_NOT_ENOUGH_PAWNS;
+	else if (nb_pawns >= src_cell->nb_pawns)
+		return PLAYER_ERROR_MOVE_ALL_PAWNS;
+
 	if (!cell_are_neighbours(src_cell, dst_cell)) {
 		return PLAYER_ERROR_MOVE_CELLS_NOT_NEIGHBOURS;
 	}
