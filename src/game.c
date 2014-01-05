@@ -8,13 +8,7 @@
 #include "utils.h"
 #include "ui.h"
 
-#define NO_FIGHT 0
-#define FIGHT_WON 1
-#define FIGHT_LOST 2
-#define FIGHT_DRAW 3
-
 int _select_starting_player(int nb_players);
-short _fight(s_player *current_player, struct s_cell *cell, uint16_t nb_pawns);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
 
 /**
@@ -28,10 +22,10 @@ s_player *game_start(s_board *b)
 {
 	int current_player_index, player_nb_cells, cell_to_leave;
 	uint16_t nb_pawns_to_move;
-	short fight_result;
+	short result;
 	s_player *winner, *current_player;
-	struct s_cell **player_cells;
-	struct s_cell *cell_to_goto;
+	s_cell **player_cells;
+	s_cell *cell_to_goto;
 	char next_player_msg[64];
 
 	winner = NULL;
@@ -59,25 +53,22 @@ s_player *game_start(s_board *b)
 		// Select the number of pawns to move
 		nb_pawns_to_move = player_select_nb_pawns(current_player, player_cells[cell_to_leave]);
 
-		if (cell_to_goto->owner == NULL || cell_to_goto->owner->id == current_player->id) {
-			if (cell_to_goto->owner == NULL) {
-				cell_to_goto->owner = current_player;
-				current_player->nb_cells++;
-			}
-// @XXX
-			cell_to_goto->nb_pawns = (uint16_t) (cell_to_goto->nb_pawns + nb_pawns_to_move);
-			fight_result = NO_FIGHT;
-		}
-		else {
+		// @TODO move in player with an event
+		if (cell_to_goto->owner != NULL && current_player->id != cell_to_goto->owner->id)
 			ui_info("You're engaging a fight");
 
-			// fight
-			fight_result = _fight(current_player, cell_to_goto, nb_pawns_to_move);
-		}
+		result = player_move_to_cell(
+			current_player,
+			nb_pawns_to_move,
+			player_cells[cell_to_leave],
+			cell_to_goto
+		);
 
-		if (fight_result != FIGHT_DRAW) {
-// @XXX
-			player_cells[cell_to_leave]->nb_pawns = (uint16_t) (player_cells[cell_to_leave]->nb_pawns - nb_pawns_to_move);
+		if (result == FIGHT_LOST) {
+			ui_info("You lost the fight");
+		}
+		else if (result == FIGHT_WON) {
+			ui_info("You won the fight");
 		}
 
 		if (current_player->nb_pawns == current_player->nb_cells) {
@@ -147,49 +138,4 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
 	);
 
 	return 1;
-}
-
-/**
- * The player tries to dominate the cell with nb_pawns.
- *
- * @param s_board *b The game's board
- * @param s_player *current_player The current player, who is starting a fight
- * @param struct s_cell *cell The cell where the fight is happening
- * @param int nb_pawns The number of pawns the current player wants to move to
- * 		the cell
- * @param s_player **winner The game winner
- *
- * @return short FIGHT_WON if current_player won the fight, FIGHT_DRAW if nobody
- * 		won, FIGHT_LOST if current_player lost the fight
- */
-short _fight(s_player *current_player, struct s_cell *cell, uint16_t nb_pawns)
-{
-	short result;
-
-	if (cell->nb_pawns > nb_pawns) {
-		result = FIGHT_LOST;
-	}
-	else if (nb_pawns > cell->nb_pawns) {
-		result = FIGHT_WON;
-	}
-	else {
-		result = FIGHT_DRAW;
-	}
-
-	if (result == FIGHT_LOST) {
-		ui_info("You lost the fight");
-// @XXX
-		current_player->nb_pawns = (uint16_t) (current_player->nb_pawns - nb_pawns);
-	}
-	else if (result == FIGHT_WON) {
-		ui_info("You won the fight");
-// @XXX
-		cell->owner->nb_pawns = (uint16_t) (cell->owner->nb_pawns - cell->nb_pawns);
-		cell->owner->nb_cells--;
-		cell->owner = current_player;
-		cell->nb_pawns = nb_pawns;
-		current_player->nb_cells++;
-	}
-
-	return result;
 }
