@@ -43,6 +43,7 @@ void test_cell_set_owner(void)
 	assert_null(c.owner);
 	cell_set_owner(&c, &p);
 	assert_str_equals(c.owner->name, "test");
+	assert_int_equals(c.owner->nb_cells, 1);
 
 	free_cell(&c);
 }
