@@ -30,7 +30,7 @@ int init_player(
 	const uint16_t nb_pawns
 )
 {
-	if (name == NULL)
+	if (name[0] == '\0')
 		return ERROR_INIT_PLAYER_EMPTY_NAME;
 
 	p->name = name;
