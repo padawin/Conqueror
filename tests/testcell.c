@@ -106,3 +106,27 @@ void test_cell_add_neighbour(void)
 		free_cell(&cells[c]);
 	}
 }
+
+void test_cell_are_neighbours(void)
+{
+	printf("\ntest_cell_are_neighbours\n");
+	s_cell cells[3];
+	int c;
+	uint8_t nb_cells;
+
+	nb_cells = 3;
+	for (c = 0; c < 4; c++) {
+		init_cell(&cells[c], c, nb_cells);
+	}
+
+	cell_add_neighbour(&cells[0], &cells[1]);
+	cell_add_neighbour(&cells[1], &cells[2]);
+
+	assert_int_equals(cell_are_neighbours(&cells[0], &cells[1]), 1);
+	assert_int_equals(cell_are_neighbours(&cells[1], &cells[2]), 1);
+	assert_int_equals(cell_are_neighbours(&cells[0], &cells[2]), 0);
+
+	for (c = 0; c < 3; c++) {
+		free_cell(&cells[c]);
+	}
+}

@@ -34,4 +34,5 @@ void testcell(void)
 	test_cell_set_owner();
 	test_cell_set_nb_pawns();
 	test_cell_add_neighbour();
+	test_cell_are_neighbours();
 }
