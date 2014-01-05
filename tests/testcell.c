@@ -38,7 +38,7 @@ void test_cell_set_owner(void)
 	s_cell c;
 	s_player p;
 	init_cell(&c, 1, 4);
-	init_player(&p, "test", 1, 1,10);
+	init_player(&p, 1, "test", 1, STRATEGY_NONE, 10);
 
 	assert_null(c.owner);
 	cell_set_owner(&c, &p);
@@ -55,7 +55,7 @@ void test_cell_set_nb_pawns(void)
 	int result;
 
 	init_cell(&c, 1, 4);
-	init_player(&p, "test", 1, 1, 10);
+	init_player(&p, 1, "test", 1, STRATEGY_NONE, 10);
 
 	result = cell_set_nb_pawns(&c, 13);
 	assert_int_equals(result, CELL_ERROR_SET_PAWNS_NO_OWNER);

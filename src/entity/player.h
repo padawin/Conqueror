@@ -33,6 +33,7 @@ typedef struct s_player {
 
 int init_player(
 	s_player *p,
+	const int id,
 	const char *name,
 	const short is_human,
 	const int strategy,

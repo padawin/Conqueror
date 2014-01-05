@@ -24,6 +24,7 @@ short _fight(int nb_pawns, struct s_cell *cell);
  */
 int init_player(
 	s_player *p,
+	const int id,
 	const char *name,
 	const short is_human,
 	const int strategy,
@@ -44,6 +45,7 @@ int init_player(
 
 	p->nb_pawns = nb_pawns;
 	p->strategy = strategy;
+	p->id = id;
 	p->name = name;
 	p->is_human = is_human;
 	p->nb_cells = 0;
