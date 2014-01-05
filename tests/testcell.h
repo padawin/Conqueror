@@ -6,4 +6,5 @@ void test_free_cell(void);
 void test_cell_set_owner(void);
 void test_cell_set_nb_pawns(void);
 void test_cell_add_neighbour(void);
+void test_cell_are_neighbours(void);
 #endif

@@ -38,11 +38,12 @@ void test_cell_set_owner(void)
 	s_cell c;
 	s_player p;
 	init_cell(&c, 1, 4);
-	init_player(&p, "test", 1, 1,10);
+	init_player(&p, 1, "test", 1, STRATEGY_NONE, 10);
 
 	assert_null(c.owner);
 	cell_set_owner(&c, &p);
 	assert_str_equals(c.owner->name, "test");
+	assert_int_equals(c.owner->nb_cells, 1);
 
 	free_cell(&c);
 }
@@ -55,7 +56,7 @@ void test_cell_set_nb_pawns(void)
 	int result;
 
 	init_cell(&c, 1, 4);
-	init_player(&p, "test", 1, 1, 10);
+	init_player(&p, 1, "test", 1, STRATEGY_NONE, 10);
 
 	result = cell_set_nb_pawns(&c, 13);
 	assert_int_equals(result, CELL_ERROR_SET_PAWNS_NO_OWNER);
@@ -103,6 +104,30 @@ void test_cell_add_neighbour(void)
 	assert_int_equals(cells[3].nb_neighbours, 0);
 
 	for (c = 0; c < 4; c++) {
+		free_cell(&cells[c]);
+	}
+}
+
+void test_cell_are_neighbours(void)
+{
+	printf("\ntest_cell_are_neighbours\n");
+	s_cell cells[3];
+	int c;
+	uint8_t nb_cells;
+
+	nb_cells = 3;
+	for (c = 0; c < 4; c++) {
+		init_cell(&cells[c], c, nb_cells);
+	}
+
+	cell_add_neighbour(&cells[0], &cells[1]);
+	cell_add_neighbour(&cells[1], &cells[2]);
+
+	assert_int_equals(cell_are_neighbours(&cells[0], &cells[1]), 1);
+	assert_int_equals(cell_are_neighbours(&cells[1], &cells[2]), 1);
+	assert_int_equals(cell_are_neighbours(&cells[0], &cells[2]), 0);
+
+	for (c = 0; c < 3; c++) {
 		free_cell(&cells[c]);
 	}
 }

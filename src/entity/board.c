@@ -79,12 +79,11 @@ int board_add_player(s_board *b, s_player *p)
 		cell_index = (int) utils_get_random_int(0, (unsigned int) b->nb_cells);
 	} while (cell_index == -1 || b->cells[cell_index].owner != NULL);
 
-	b->cells[cell_index].owner = p;
-	b->cells[cell_index].nb_pawns = p->nb_pawns;
+	cell_set_owner(&b->cells[cell_index], p);
+	cell_set_nb_pawns(&b->cells[cell_index], p->nb_pawns);
 
 	b->players[b->nb_players] = p;
 	b->nb_players++;
-	p->nb_cells++;
 
 	return cell_index;
 }

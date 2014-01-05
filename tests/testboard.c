@@ -47,13 +47,9 @@ void test_board_add_player(void)
 	init_board(&b, nb_cells, 2);
 
 	builder_create_small_board(&b, 2);
-	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1);
-	init_player(&p2, "Player 2", 1, STRATEGY_OFFENCE, 1);
-	init_player(&p2, "Player 3", 1, STRATEGY_OFFENCE, 1);
-
-	p1.id = 1;
-	p2.id = 2;
-	p2.id = 3;
+	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, 1);
+	init_player(&p2, 2, "Player 2", 1, STRATEGY_OFFENCE, 1);
+	init_player(&p2, 3, "Player 3", 1, STRATEGY_OFFENCE, 1);
 
 	index_p1 = board_add_player(&b, &p1);
 	assert_int_equals(b.nb_players, 1);
@@ -86,7 +82,7 @@ void test_board_get_player_cells(void)
 	player_cells = calloc((size_t) b.nb_cells, sizeof(struct s_cell *));
 
 	builder_create_small_board(&b, 2);
-	init_player(&p1, "Player 1", 1, STRATEGY_NONE, 1);
+	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, 1);
 
 	p1.id = 1;
 

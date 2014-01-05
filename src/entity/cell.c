@@ -54,6 +54,7 @@ void free_cell(s_cell *c)
 void cell_set_owner(s_cell *c, struct s_player *owner)
 {
 	c->owner = owner;
+	owner->nb_cells = (uint8_t) (owner->nb_cells + 1);
 }
 
 /**
@@ -89,19 +90,15 @@ int cell_set_nb_pawns(s_cell *c, const uint16_t nb_pawns)
  * 		more neighbours or ERROR_ALREADY_NEIGHBOUR if neighbour is already a
  * 		neighbour of c.
  */
-int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
+int cell_add_neighbour(s_cell *c, s_cell *neighbour)
 {
-	int n;
-
 	if (
 		c->nb_neighbours == c->nb_max_neighbours
 		|| neighbour->nb_neighbours == neighbour->nb_max_neighbours
 	)
 		return CELL_ERROR_MAX_NEIGHBOURS_REACHED;
 
-	for (n = 0; n < c->nb_neighbours && c->neighbours[n]->id != neighbour->id; n++);
-
-	if (n < c->nb_neighbours) {
+	if (cell_are_neighbours(c, neighbour)) {
 		return CELL_ERROR_ALREADY_NEIGHBOUR;
 	}
 
@@ -109,4 +106,20 @@ int cell_add_neighbour(s_cell *c, struct s_cell *neighbour)
 	neighbour->neighbours[neighbour->nb_neighbours++] = c;
 
 	return CELL_ADD_NEIGHBOUR_OK;
+}
+
+/**
+ * Check if two cells are neighbours.
+ *
+ * @param s_cell *c1
+ * @param s_cell *c2
+ *
+ * @return 1 if the cells are neighbours, 0 else
+ */
+short cell_are_neighbours(s_cell *c1, s_cell *c2)
+{
+	int n;
+	for (n = 0; n < c1->nb_neighbours && c1->neighbours[n]->id != c2->id; n++);
+
+	return n < c1->nb_neighbours;
 }

@@ -1,16 +1,19 @@
 #include "testbuilder.h"
 #include "testboard.h"
 #include "testcell.h"
+#include "testplayer.h"
 
 void testbuilder(void);
 void testboard(void);
 void testcell(void);
+void testplayer(void);
 
 int main()
 {
 	testbuilder();
 	testboard();
 	testcell();
+	testplayer();
 	return 1;
 }
 
@@ -34,4 +37,11 @@ void testcell(void)
 	test_cell_set_owner();
 	test_cell_set_nb_pawns();
 	test_cell_add_neighbour();
+	test_cell_are_neighbours();
+}
+
+void testplayer(void)
+{
+	test_init_player();
+	test_player_move_to_cell();
 }
