@@ -43,4 +43,5 @@ void testcell(void)
 void testplayer(void)
 {
 	test_init_player();
+	test_player_move_to_cell();
 }
