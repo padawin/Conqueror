@@ -51,10 +51,6 @@ void test_board_add_player(void)
 	init_player(&p2, 2, "Player 2", 1, STRATEGY_OFFENCE, 1);
 	init_player(&p2, 3, "Player 3", 1, STRATEGY_OFFENCE, 1);
 
-	p1.id = 1;
-	p2.id = 2;
-	p2.id = 3;
-
 	index_p1 = board_add_player(&b, &p1);
 	assert_int_equals(b.nb_players, 1);
 	assert_int_equals(b.players[0]->nb_cells, 1);
