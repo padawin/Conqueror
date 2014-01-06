@@ -66,6 +66,12 @@ This number must be higher than 1 and lower than the number of pawns being on
 the source cell.
 Here, the player just has to type a number.
 
+Examples:
+```
+Choose a number of pawns to move between 1 and 7
+Number of pawns: 4
+```
+
 If the destination belongs to nobody, the current player become its owner, and
 the selected number of pawns are moved from the source cell to the destination
 cell.
