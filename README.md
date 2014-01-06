@@ -51,6 +51,12 @@ This number must be higher than 1 and lower than the number of pawns being on
 the source cell.
 Here, the player just has to type a number.
 
+If the destination belongs to nobody, the current player become its owner, and
+the selected number of pawns are moved from the source cell to the destination
+cell.
+
+If the cell belongs to another player, a fight occurs.
+
 ### Fights
 
 ### End of the game
