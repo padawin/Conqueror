@@ -50,7 +50,13 @@ For that the player can do the following commands:
 
 Examples:
 ```
+Choose a cell to go to
 
+Command: neighbours
+Cell 1: owned by Player 1 with 8 pawns
+Cell 3: owned by nobody with 0 pawns
+
+Command: cell 3
 ```
 
 Selection of the number of pawns to move:
