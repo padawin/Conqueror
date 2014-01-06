@@ -89,7 +89,7 @@ struct s_cell *human_select_cell_to_go_to(struct s_cell *src_cell)
 	do {
 		ui_prompt("Command: ", command, (size_t) command_size);
 
-		if (_check_command(command, "neighbours", 1)) {
+		if (_check_command(command, "cells", 1)) {
 			ui_list_cells(src_cell->neighbours, src_cell->nb_neighbours, CELLS_LIST_FULL);
 		}
 		else if (_check_command(command, "cell ", 0)) {
