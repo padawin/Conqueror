@@ -3,6 +3,8 @@
 Conqueror is a strategy board game where each players must own as much cells of
 the board as possible.
 
+For the moment the game can only be played in CLI mode.
+
 ## Rules
 
 ### Environment
