@@ -80,6 +80,14 @@ If the cell belongs to another player, a fight occurs.
 
 ### Fights
 
+// Fight conditions
+// Fight result conditions
+// Fight consequences
+	// Winner
+	// Loser
+	// Draw
+// Example
+
 ### End of the game
 
 The game ends when no player can play anymore or if one player is remaining in
