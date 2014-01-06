@@ -14,6 +14,43 @@ Each player starts on a randomly chosen cell.
 
 ### Turns
 
+On each turn, the current player must move some of his pawns from one of his
+cells to a neighbour cell.
+The turn is separated in 3 steps:
+
+Selection of the cell to leave (source cell):
+
+First, the player must choose a cell among those he owns.
+For that the player can do the following commands:
+- cells: to list the cells he owns,
+- neighbours #: to list the neighbour cells of the cell #,
+- cell #: to choose the cell # as source cell.
+
+Examples:
+```
+
+```
+
+Selection of the cell to go to (destination cell):
+
+Then, the player must choose a cell where he'll move pawns. The destination cell
+must be a neighbour of the source cell.
+For that the player can do the following commands:
+- cells: to list the neighbour cells of the source cell,
+- cell #: to choose the cell # as destination cell.
+
+Examples:
+```
+
+```
+
+Selection of the number of pawns to move:
+
+Thirdly,  the player must select the number of pawns he wants to move.
+This number must be higher than 1 and lower than the number of pawns being on
+the source cell.
+Here, the player just has to type a number.
+
 ### End of the game
 
 The game ends when no player can play anymore or if one player is remaining in
