@@ -51,6 +51,8 @@ This number must be higher than 1 and lower than the number of pawns being on
 the source cell.
 Here, the player just has to type a number.
 
+### Fights
+
 ### End of the game
 
 The game ends when no player can play anymore or if one player is remaining in
