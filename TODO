@@ -6,9 +6,12 @@ Easy: After each fight, let the other players know about the result (number of i
 Medium: After each fight, let the players owning neighbour cells of the fight's one about the new state of the fight cell (owner and number of pawns)
 Hard: No player is aware of what's happening on the cells they don't own
 
+Add more boards
+Add player selection
 
 V2
 during a fight, each player can call for reinforcements from the neighbours cells of the one where the fight
 is happening.
 
+Generate random boards
 
