@@ -85,6 +85,10 @@ If the cell belongs to another player, a fight occurs.
 The game ends when no player can play anymore or if one player is remaining in
 the game.
 
+## Dependencies
+
+The game has no special dependencies.
+
 ## Usage
 
 To compile the game, run:
