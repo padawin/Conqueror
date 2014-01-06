@@ -28,7 +28,16 @@ For that the player can do the following commands:
 
 Examples:
 ```
+Choose a cell to leave
 
+Command: cells
+Cell 2: 8 pawns
+
+Command: neighbours 2
+Cell 1: owned by Player 1 with 8 pawns
+Cell 3: owned by nobody with 0 pawns
+
+Command: cell 2
 ```
 
 Selection of the cell to go to (destination cell):
