@@ -1,25 +1,4 @@
-X Players
-board: graph of cells
-
 V1
-
-A player has N pawns
-A cell has an owner (a player) and a number of pawns
-The players' goal is to own all the board's cells or to defeat all the other players's pawns
-Board builder with premade boards
-
-Turn:
-- The current player choose one of his cells (C1)
-- Then he choose a neighbour of C1 (C2)
-- select a number of pawns to move to C2 (between 0 and the number of pawns on C1)
-- if C2 is owned by another player, a fight occurs. The player having the highest number of pawns wins the fight.
-	If both players have the same number of pawns, the fight is a draw, C2 owner does not change, no player lose pawns
-	If the current player wins the fight, C2 becomes his and the pawns he moved are based on C2.
-	If the current player loses the fight, he loses the pawns he moved
-- If the current player wins the fight and if he owns all the cells or if all the other players
-	are defeated, he wins the game.
--If the player didn't win and has no pawns anymore or as many pawns as the number of cells he owns, he cannot play anymore
-
 At the beginning, the number of pawns per player must be 2x(number of cells)
 
 Difficulty modes
