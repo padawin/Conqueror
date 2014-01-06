@@ -15,7 +15,7 @@ int main()
 
 	builder_create_small_board(&b, 2);
 	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
-	init_player(&p2, 2, "Player 2", 1, STRATEGY_OFFENCE, NB_PAWNS_PER_PLAYER);
+	init_player(&p2, 2, "Player 2", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
 
 	board_add_player(&b, &p1);
 	board_add_player(&b, &p2);
