@@ -12,12 +12,18 @@
  */
 unsigned int utils_get_random_int(unsigned int min, unsigned int max)
 {
-	int randomData = open("/dev/urandom", O_RDONLY);
 	unsigned int rInt;
+
+#ifdef _WIN32
+	srand(time(NULL));
+	rInt = min + (rand() % max);
+#else
+	int randomData = open("/dev/urandom", O_RDONLY);
 	read(randomData, &rInt, sizeof rInt);
 
 	rInt = rInt % (max - min) + min;
 	close(randomData);
+#endif
 
 	return rInt;
 }
