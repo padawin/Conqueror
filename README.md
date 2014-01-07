@@ -22,9 +22,9 @@ Selection of the cell to leave (source cell):
 
 First, the player must choose a cell among those he owns.
 For that the player can do the following commands:
-- cells: to list the cells he owns,
-- neighbours #: to list the neighbour cells of the cell #,
-- cell #: to choose the cell # as source cell.
+- **cells**: to list the cells he owns,
+- **neighbours #**: to list the neighbour cells of the cell #,
+- **cell #**: to choose the cell # as source cell.
 
 Examples:
 ```
@@ -45,8 +45,8 @@ Selection of the cell to go to (destination cell):
 Then, the player must choose a cell where he'll move pawns. The destination cell
 must be a neighbour of the source cell.
 For that the player can do the following commands:
-- cells: to list the neighbour cells of the source cell,
-- cell #: to choose the cell # as destination cell.
+- **cells**: to list the neighbour cells of the source cell,
+- **cell #**: to choose the cell # as destination cell.
 
 Examples:
 ```
