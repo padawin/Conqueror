@@ -52,7 +52,7 @@ Examples:
 ```
 Choose a cell to go to
 
-Command: neighbours
+Command: cells
 Cell 1: owned by Player 1 with 8 pawns
 Cell 3: owned by nobody with 0 pawns
 
