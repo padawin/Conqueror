@@ -80,13 +80,19 @@ If the cell belongs to another player, a fight occurs.
 
 ### Fights
 
-// Fight conditions
-// Fight result conditions
-// Fight consequences
-	// Winner
-	// Loser
-	// Draw
-// Example
+If a player moves pawns on a cell owned by another player, a fight occurs.
+The result of the fight depends on the number of pawns involved on each side
+(those brought by the current player and those being on the cell).
+
+The winner of the fight is the player having the higher number of pawns. If both
+players have the same number of pawns, the fight result is a draw.
+
+- If the fight is a draw, nothing happens, no player lose pawns.
+- If the current player wins the fight, the cell becomes his and the pawns he
+moved are set on the cell. The other player loses the cell and the pawns he had
+on it.
+- If the current player loses the fight, he loses the pawns he tried to move. The
+other player cells and pawns are unchanged.
 
 ### End of the game
 
