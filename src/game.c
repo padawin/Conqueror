@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include "game.h"
 #include "entity/board.h"
 #include "entity/player.h"
@@ -26,17 +27,27 @@ int game_select_map(s_board *b)
 /**
  * Init the players, between 2 and nb_max_players
  *
- * @return int the actual number of players
+ * @return void
  */
 void game_select_players(s_board *b, s_player *players, int nb_max_players)
 {
 	int p;
-	const char *names[4] = {"Player1", "player2", "player3", "player4"};
-	for (p = 0; p < nb_max_players; p++) {
-		init_player(&players[p], 1, names[p], 1, STRATEGY_NONE, 8);
-		board_add_player(b, &players[p]);
+	const char *names[4] = {"Player1", "player2", "foo", ""};
+
+	p = 0;
+
+	while (p < nb_max_players) {
 		// @TODO loop on each player, ask if the player is an AI or a human
 		// @TODO	ask for the player name and the strategy if AI
+
+		if (strlen(names[p]) > 0) {
+			init_player(&players[p], p+1, names[p], 1, STRATEGY_NONE, 8);
+			board_add_player(b, &players[p]);
+			p++;
+		}
+		else if (p >= 2) {
+			break;
+		}
 	}
 }
 
