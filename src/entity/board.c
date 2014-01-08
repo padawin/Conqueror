@@ -51,6 +51,11 @@ int init_board(s_board *b, uint8_t nb_cells, uint8_t nb_players)
  */
 void free_board(s_board *b)
 {
+	int c;
+	for (c = 0; c < b->nb_cells; c++) {
+		free_cell(&b->cells[c]);
+	}
+
 	free(b->cells);
 	free(b->players);
 	b->cells = NULL;
