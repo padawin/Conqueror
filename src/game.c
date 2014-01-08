@@ -16,12 +16,11 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
 /**
  * Select a map and returns the max number of players of the map
  */
-int game_select_map(s_board *b)
+void game_select_map(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
 {
 	// @TODO ask for size
 	// @TODO build map from size
-	// @TODO the number of pawns per player should be map dependant
-	return builder_create_small_board(b);
+	builder_create_small_board(b, nb_max_players, pawns_per_player);
 }
 
 /**
@@ -29,7 +28,7 @@ int game_select_map(s_board *b)
  *
  * @return void
  */
-void game_select_players(s_board *b, s_player *players, int nb_max_players)
+void game_select_players(s_board *b, s_player *players, const uint8_t nb_max_players, const uint16_t nb_pawns_per_player)
 {
 	int p;
 
@@ -44,7 +43,7 @@ void game_select_players(s_board *b, s_player *players, int nb_max_players)
 		ui_prompt(name_prompt, player_name, (size_t) PLAYER_NAME_LEN);
 
 		if (strlen(player_name) > 0) {
-			init_player(&players[p], p+1, player_name, 1, STRATEGY_NONE, 8);
+			init_player(&players[p], p+1, player_name, 1, STRATEGY_NONE, nb_pawns_per_player);
 			board_add_player(b, &players[p]);
 			p++;
 		}
