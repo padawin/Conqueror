@@ -9,11 +9,13 @@
  * |       |
  * 4 ----- 3
  */
-int builder_create_small_board(s_board *b, uint8_t nb_player)
+int builder_create_small_board(s_board *b)
 {
 	int c;
+	uint8_t nb_max_players;
 
-	init_board(b, SMALL_BOARD_NB_CELLS, nb_player);
+	nb_max_players = 2;
+	init_board(b, SMALL_BOARD_NB_CELLS, nb_max_players);
 
 	for (c = 0; c < SMALL_BOARD_NB_CELLS; c++) {
 		b->cells[c].neighbours[0] = &b->cells[(SMALL_BOARD_NB_CELLS + c - 1) % SMALL_BOARD_NB_CELLS];
@@ -21,5 +23,5 @@ int builder_create_small_board(s_board *b, uint8_t nb_player)
 		b->cells[c].nb_neighbours = 2;
 	}
 
-	return 1;
+	return nb_max_players;
 }

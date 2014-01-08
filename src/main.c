@@ -13,7 +13,7 @@ int main()
 	s_board b;
 	s_player p1, p2;
 
-	builder_create_small_board(&b, 2);
+	builder_create_small_board(&b);
 	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
 	init_player(&p2, 2, "Player 2", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
 
