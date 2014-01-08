@@ -1,26 +1,20 @@
 #include <stdlib.h>
-#include "entity/player.h"
 #include "entity/board.h"
 #include "game.h"
-#include "builder.h"
-
-#define NB_PAWNS_PER_PLAYER 8
 
 int main()
 {
 	s_board b;
-	s_player p1, p2;
+	int nb_players_max;
+	s_player *players;
 
-	builder_create_small_board(&b);
-	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
-	init_player(&p2, 2, "Player 2", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
+	nb_players_max = game_select_map(&b);
 
-	board_add_player(&b, &p1);
-	board_add_player(&b, &p2);
-
+	players = calloc((size_t) nb_players_max, sizeof(s_player));
+	game_select_players(&b, players, nb_players_max);
 	game_start(&b);
 
 	free_board(&b);
-
+	free(players);
 	return EXIT_SUCCESS;
 }

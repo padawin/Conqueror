@@ -5,11 +5,42 @@
 #include "entity/board.h"
 #include "entity/player.h"
 #include "entity/cell.h"
+#include "builder.h"
 #include "utils.h"
 #include "ui.h"
 
 int _select_starting_player(int nb_players);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
+
+/**
+ * Select a map and returns the max number of players of the map
+ */
+int game_select_map(s_board *b)
+{
+	// @TODO ask for size
+	// @TODO build map from size
+	// @TODO the number of pawns per player should be map dependant
+	return builder_create_small_board(b);
+}
+
+/**
+ * Init the players, between 2 and nb_max_players
+ *
+ * @return int the actual number of players
+ */
+void game_select_players(s_board *b, s_player *players, int nb_max_players)
+{
+	int p;
+	for (p = 0; p < nb_max_players; p++) {
+		// @TODO loop on each player, ask if the player is an AI or a human
+		// @TODO	ask for the player name and the strategy if AI
+	}
+	init_player(&players[0], 1, "Player 1", 1, STRATEGY_NONE, 8);
+	init_player(&players[1], 2, "Player 2", 1, STRATEGY_NONE, 8);
+
+	board_add_player(b, &players[0]);
+	board_add_player(b, &players[1]);
+}
 
 /**
  * Game main loop
