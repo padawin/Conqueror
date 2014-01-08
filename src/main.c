@@ -1,11 +1,9 @@
 #include <stdlib.h>
 #include "entity/player.h"
-#include "entity/cell.h"
 #include "entity/board.h"
 #include "game.h"
 #include "builder.h"
 
-#define NB_CELLS 4
 #define NB_PAWNS_PER_PLAYER 8
 
 int main()
