@@ -11,7 +11,7 @@ void test_builder(void)
 	s_board b;
 	int c;
 
-	builder_create_small_board(&b, 2);
+	builder_create_small_board(&b);
 
 	for (c = 0; c < SMALL_BOARD_NB_CELLS; c++) {
 		assert_int_equals(b.cells[c].nb_neighbours, 2);
