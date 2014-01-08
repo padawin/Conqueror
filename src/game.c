@@ -31,15 +31,13 @@ int game_select_map(s_board *b)
 void game_select_players(s_board *b, s_player *players, int nb_max_players)
 {
 	int p;
+	const char *names[4] = {"Player1", "player2", "player3", "player4"};
 	for (p = 0; p < nb_max_players; p++) {
+		init_player(&players[p], 1, names[p], 1, STRATEGY_NONE, 8);
+		board_add_player(b, &players[p]);
 		// @TODO loop on each player, ask if the player is an AI or a human
 		// @TODO	ask for the player name and the strategy if AI
 	}
-	init_player(&players[0], 1, "Player 1", 1, STRATEGY_NONE, 8);
-	init_player(&players[1], 2, "Player 2", 1, STRATEGY_NONE, 8);
-
-	board_add_player(b, &players[0]);
-	board_add_player(b, &players[1]);
 }
 
 /**
