@@ -48,8 +48,8 @@ void test_board_add_player(void)
 
 	builder_create_small_board(&b);
 	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, 1);
-	init_player(&p2, 2, "Player 2", 1, STRATEGY_OFFENCE, 1);
-	init_player(&p2, 3, "Player 3", 1, STRATEGY_OFFENCE, 1);
+	init_player(&p2, 2, "Player 2", 1, STRATEGY_NONE, 1);
+	init_player(&p2, 3, "Player 3", 1, STRATEGY_NONE, 1);
 
 	index_p1 = board_add_player(&b, &p1);
 	assert_int_equals(b.nb_players, 1);
