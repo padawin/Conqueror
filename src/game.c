@@ -31,18 +31,17 @@ int game_select_map(s_board *b)
  */
 void game_select_players(s_board *b, s_player *players, int nb_max_players)
 {
-	int p, player_name_size;
+	int p;
 
-	player_name_size = 50;
 	p = 0;
-	char player_name[player_name_size];
+	char player_name[PLAYER_NAME_LEN];
 	char name_prompt[16];
 
 	while (p < nb_max_players) {
 		// @TODO loop on each player, ask if the player is an AI or a human
 		// @TODO	ask for the player name and the strategy if AI
 		sprintf(name_prompt, "Name of player %d: ", p+1);
-		ui_prompt(name_prompt, player_name, (size_t) player_name_size);
+		ui_prompt(name_prompt, player_name, (size_t) PLAYER_NAME_LEN);
 
 		if (strlen(player_name) > 0) {
 			init_player(&players[p], p+1, player_name, 1, STRATEGY_NONE, 8);
