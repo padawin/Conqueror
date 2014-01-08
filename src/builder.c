@@ -14,7 +14,7 @@ int builder_create_small_board(s_board *b)
 	int c;
 	uint8_t nb_max_players;
 
-	nb_max_players = 2;
+	nb_max_players = 4;
 	init_board(b, SMALL_BOARD_NB_CELLS, nb_max_players);
 
 	for (c = 0; c < SMALL_BOARD_NB_CELLS; c++) {
