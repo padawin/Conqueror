@@ -1,5 +1,5 @@
 V1
-At the beginning, the number of pawns per player must be 2x(number of cells)
+The number of pawns per player is board dependent.
 
 Difficulty modes
 Easy: After each fight, let the other players know about the result (number of involved pawns and winner).
@@ -8,6 +8,7 @@ Hard: No player is aware of what's happening on the cells they don't own
 
 Add more boards
 Add player selection
+AI
 
 V2
 during a fight, each player can call for reinforcements from the neighbours cells of the one where the fight
