@@ -24,8 +24,10 @@ struct s_player;
 #define FIGHT_LOST 2
 #define FIGHT_DRAW 3
 
+#define PLAYER_NAME_LEN 50
+
 typedef struct s_player {
-	const char *name;
+	char name[PLAYER_NAME_LEN];
 	int id;
 	uint8_t nb_cells;
 	uint16_t nb_pawns;

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "cell.h"
 #include "player.h"
 #include "player/ai.h"
@@ -46,7 +47,7 @@ int init_player(
 	p->nb_pawns = nb_pawns;
 	p->strategy = strategy;
 	p->id = id;
-	p->name = name;
+	strncpy(p->name, name, PLAYER_NAME_LEN);
 	p->is_human = is_human;
 	p->nb_cells = 0;
 

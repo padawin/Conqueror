@@ -1,15 +1,62 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include "game.h"
 #include "entity/board.h"
 #include "entity/player.h"
 #include "entity/cell.h"
+#include "builder.h"
 #include "utils.h"
 #include "ui.h"
 
 int _select_starting_player(int nb_players);
 short _set_next_player_index(s_board *b, int *current_player_index, s_player *current_player, s_player *winner);
+
+/**
+ * Select a map and returns the max number of players of the map
+ */
+void game_select_map(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
+{
+	// @TODO ask for size
+	// list available sizes
+	// @TODO build map from size
+	builder_create_board(BUILDER_SMALL_BOARD, b, nb_max_players, pawns_per_player);
+}
+
+/**
+ * Init the players, between 2 and nb_max_players
+ *
+ * @return void
+ */
+void game_select_players(s_board *b, s_player *players, const uint8_t nb_max_players, const uint16_t nb_pawns_per_player)
+{
+	int p;
+
+	p = 0;
+	char player_name[PLAYER_NAME_LEN];
+	char name_prompt[16], names_informations[96];
+
+	sprintf(names_informations, "Please select between 2 and %d players.\n\
+Validate an empty name when you have enough players.", nb_max_players);
+	ui_info(names_informations);
+
+	while (p < nb_max_players) {
+		// @TODO loop on each player, ask if the player is an AI or a human
+		// @TODO	ask for the player name and the strategy if AI
+		sprintf(name_prompt, "Name of player %d: ", p+1);
+		ui_prompt(name_prompt, player_name, (size_t) PLAYER_NAME_LEN);
+
+		if (strlen(player_name) > 0) {
+			init_player(&players[p], p+1, player_name, 1, STRATEGY_NONE, nb_pawns_per_player);
+			board_add_player(b, &players[p]);
+			p++;
+		}
+		else if (p >= 2) {
+			break;
+		}
+	}
+}
 
 /**
  * Game main loop

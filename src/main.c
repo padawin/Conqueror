@@ -1,28 +1,22 @@
 #include <stdlib.h>
-#include "entity/player.h"
-#include "entity/cell.h"
+#include <stdint.h>
 #include "entity/board.h"
 #include "game.h"
-#include "builder.h"
-
-#define NB_CELLS 4
-#define NB_PAWNS_PER_PLAYER 8
 
 int main()
 {
 	s_board b;
-	s_player p1, p2;
+	uint8_t nb_players_max;
+	uint16_t nb_pawns_per_player;
+	s_player *players;
 
-	builder_create_small_board(&b, 2);
-	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
-	init_player(&p2, 2, "Player 2", 1, STRATEGY_NONE, NB_PAWNS_PER_PLAYER);
+	game_select_map(&b, &nb_players_max, &nb_pawns_per_player);
 
-	board_add_player(&b, &p1);
-	board_add_player(&b, &p2);
-
+	players = calloc((size_t) nb_players_max, sizeof(s_player));
+	game_select_players(&b, players, nb_players_max, nb_pawns_per_player);
 	game_start(&b);
 
 	free_board(&b);
-
+	free(players);
 	return EXIT_SUCCESS;
 }

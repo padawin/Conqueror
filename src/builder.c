@@ -1,6 +1,23 @@
+#include <stdint.h>
 #include "builder.h"
 #include "entity/board.h"
 
+void _create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player);
+
+int builder_create_board(int size, s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
+{
+	int result;
+
+	result = BUILDER_BOARD_CREATED;
+	if (size == BUILDER_SMALL_BOARD) {
+		_create_small_board(b, nb_max_players, pawns_per_player);
+	}
+	else {
+		result = BUILDER_ERROR_INVALID_BOARD_SIZE;
+	}
+
+	return result;
+}
 /**
  * A small board has 4 cells, and its layout is a square.
  * 1 ----- 2
@@ -9,17 +26,17 @@
  * |       |
  * 4 ----- 3
  */
-int builder_create_small_board(s_board *b, uint8_t nb_player)
+void _create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
 {
 	int c;
 
-	init_board(b, SMALL_BOARD_NB_CELLS, nb_player);
+	*nb_max_players = 2;
+	*pawns_per_player = 8;
+	init_board(b, SMALL_BOARD_NB_CELLS, *nb_max_players);
 
 	for (c = 0; c < SMALL_BOARD_NB_CELLS; c++) {
 		b->cells[c].neighbours[0] = &b->cells[(SMALL_BOARD_NB_CELLS + c - 1) % SMALL_BOARD_NB_CELLS];
 		b->cells[c].neighbours[1] = &b->cells[(c + 1) % SMALL_BOARD_NB_CELLS];
 		b->cells[c].nb_neighbours = 2;
 	}
-
-	return 1;
 }
