@@ -13,7 +13,7 @@ void test_builder(void)
 	uint8_t nb_players_max;
 	uint16_t nb_pawns_per_player;
 
-	builder_create_small_board(&b, &nb_players_max, &nb_pawns_per_player);
+	builder_create_board(BUILDER_SMALL_BOARD, &b, &nb_players_max, &nb_pawns_per_player);
 
 	assert_int_equals(nb_players_max, 2);
 	assert_int_equals(nb_pawns_per_player, 8);

@@ -74,12 +74,12 @@ void test_board_get_player_cells(void)
 	s_player p1;
 	struct s_cell **player_cells;
 	uint8_t nb_max_players;
-	uint16_t nb_pawns_per_cell;
+	uint16_t nb_pawns_per_player;
 	int nb_players_cells;
 
 	player_cells = calloc((size_t) b.nb_cells, sizeof(struct s_cell *));
 
-	builder_create_small_board(&b, &nb_max_players, &nb_pawns_per_cell);
+	builder_create_board(BUILDER_SMALL_BOARD, &b, &nb_max_players, &nb_pawns_per_player);
 	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, 1);
 
 	p1.id = 1;
