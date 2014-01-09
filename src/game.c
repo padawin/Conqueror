@@ -19,8 +19,9 @@ short _set_next_player_index(s_board *b, int *current_player_index, s_player *cu
 void game_select_map(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
 {
 	// @TODO ask for size
+	// list available sizes
 	// @TODO build map from size
-	builder_create_small_board(b, nb_max_players, pawns_per_player);
+	builder_create_board(BUILDER_SMALL_BOARD, b, nb_max_players, pawns_per_player);
 }
 
 /**

@@ -2,6 +2,22 @@
 #include "builder.h"
 #include "entity/board.h"
 
+void _create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player);
+
+int builder_create_board(int size, s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
+{
+	int result;
+
+	result = BUILDER_BOARD_CREATED;
+	if (size == BUILDER_SMALL_BOARD) {
+		_create_small_board(b, nb_max_players, pawns_per_player);
+	}
+	else {
+		result = BUILDER_ERROR_INVALID_BOARD_SIZE;
+	}
+
+	return result;
+}
 /**
  * A small board has 4 cells, and its layout is a square.
  * 1 ----- 2
@@ -10,7 +26,7 @@
  * |       |
  * 4 ----- 3
  */
-void builder_create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
+void _create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
 {
 	int c;
 
