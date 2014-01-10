@@ -4,6 +4,16 @@
 
 void _create_small_board(s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player);
 
+/**
+ * Function to build a board from a board size
+ *
+ * @param int size The size, can be (BUILDER_SMALL_BOARD|BUILDER_MEDIUM_BOARD|BUILDER_LARGE_BOARD)
+ * @param s_board *b The board
+ * @param uint8_t *nb_max_players The board max number of players, output variable
+ * @param uint16_t *pawns_per_player The number of pawns per players, output variable
+ *
+ * @return int The result of the creation
+ */
 int builder_create_board(int size, s_board *b, uint8_t *nb_max_players, uint16_t *pawns_per_player)
 {
 	int result;
