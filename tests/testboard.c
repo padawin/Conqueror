@@ -82,8 +82,6 @@ void test_board_get_player_cells(void)
 	builder_create_board(BUILDER_SMALL_BOARD, &b, &nb_max_players, &nb_pawns_per_player);
 	init_player(&p1, 1, "Player 1", 1, STRATEGY_NONE, 1);
 
-	p1.id = 1;
-
 	board_add_player(&b, &p1);
 	nb_players_cells = board_get_player_cells(&b, &p1, player_cells);
 	assert_int_equals(nb_players_cells, 1);
