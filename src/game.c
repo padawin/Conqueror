@@ -35,7 +35,7 @@ void game_select_players(s_board *b, s_player *players, const uint8_t nb_max_pla
 
 	p = 0;
 	char player_name[PLAYER_NAME_LEN];
-	char name_prompt[16], names_informations[96];
+	char name_prompt[19], names_informations[96];
 
 	sprintf(names_informations, "Please select between 2 and %d players.\n\
 Validate an empty name when you have enough players.", nb_max_players);
