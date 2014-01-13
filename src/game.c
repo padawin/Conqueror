@@ -35,7 +35,7 @@ void game_select_players(s_board *b, s_player *players, const uint8_t nb_max_pla
 
 	p = 0;
 	char player_name[PLAYER_NAME_LEN];
-	char name_prompt[16], names_informations[96];
+	char name_prompt[19], names_informations[96];
 
 	sprintf(names_informations, "Please select between 2 and %d players.\n\
 Validate an empty name when you have enough players.", nb_max_players);
@@ -73,7 +73,7 @@ s_player *game_start(s_board *b)
 	s_player *winner, *current_player;
 	s_cell **player_cells;
 	s_cell *cell_to_goto;
-	char next_player_msg[64];
+	char next_player_msg[65];
 
 	winner = NULL;
 	player_cells = calloc((size_t) b->nb_cells, sizeof(struct s_cell *));
