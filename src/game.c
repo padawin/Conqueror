@@ -73,7 +73,7 @@ s_player *game_start(s_board *b)
 	s_player *winner, *current_player;
 	s_cell **player_cells;
 	s_cell *cell_to_goto;
-	char next_player_msg[64];
+	char next_player_msg[65];
 
 	winner = NULL;
 	player_cells = calloc((size_t) b->nb_cells, sizeof(struct s_cell *));
